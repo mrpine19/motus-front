@@ -10,6 +10,7 @@ import RankingPage from "./page/RankingPage";
 import SystemLayout from "./SystemLayout";
 import DesafioPage from "./page/DesafioPage";
 import DashboardMentorPage from "./page/DashboardMentorPage";
+import DashboardEsgPage from "./page/DashboardEsgPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="ranking" element={<RankingPage />} />
             <Route path="trilha" element={<DesafioPage />} />
             <Route path="dashboard/mentor" element={<DashboardMentorPage />} />
+            <Route path="/dashboard/esg" element={<DashboardEsgPage />} />
           </Route>
 
           <Route path="*" element={<div>Página não encontrada</div>} />

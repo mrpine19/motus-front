@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Users, AlertTriangle, TrendingUp, TrendingDown } from "lucide-react";
 
-// --- Constante de Simulação ---
-
-// --- Interfaces de Dados (DTOs) ---
 interface DificuldadeAreaDto {
   areaCompetencia: string;
   taxaErro: number;
@@ -97,9 +94,6 @@ const MOCK_DASHBOARD_DATA: TurmaDashboardDto[] = [
   },
 ];
 
-/**
- * Componente de Dashboard para o Voluntário/Mentor acompanhar o desempenho das turmas.
- */
 export function DashboardMentorPage() {
   const [turmas, setTurmas] = useState<TurmaDashboardDto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,7 +104,6 @@ export function DashboardMentorPage() {
       setLoading(true);
       setError(null);
       try {
-        // Simulação de chamada à API com delay
         await new Promise((resolve) => setTimeout(resolve, 1200));
 
         // --- LÓGICA DE FETCH REAL (COMENTADA) ---
@@ -193,7 +186,6 @@ export function DashboardMentorPage() {
               </div>
             </div>
 
-            {/* Tabela de Alunos */}
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-700">
                 <thead className="bg-gray-800">

@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Trophy, Flame, ShieldCheck } from "lucide-react";
+import {
+  LayoutDashboard,
+  Trophy,
+  Flame,
+  ShieldCheck,
+  Briefcase,
+} from "lucide-react";
 
 const navLinks = [
-  { to: "/dashboard/mentor", icon: LayoutDashboard, label: "Dashboard" },
+  { to: "/dashboard/mentor", icon: LayoutDashboard, label: "Painel do Mentor" },
+  { to: "/dashboard/esg", icon: Briefcase, label: "Relatório ESG" },
   { to: "/ranking", icon: Trophy, label: "Ranking" },
   { to: "/trilha", icon: Flame, label: "Trilha de Desafios" },
 ];
