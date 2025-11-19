@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 export function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/ranking");
+  };
+
   return (
     <div className="container mx-auto px-4 flex justify-center">
       <div className="w-full max-w-md">
@@ -36,8 +44,9 @@ export function LoginPage() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
               type="button"
+              onClick={handleLogin}
             >
               Entrar
             </button>
