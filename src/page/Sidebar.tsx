@@ -5,11 +5,13 @@ import {
   Flame,
   ShieldCheck,
   Briefcase,
+  Wand2,
 } from "lucide-react";
 
 const navLinks = [
   { to: "/dashboard/mentor", icon: LayoutDashboard, label: "Painel do Mentor" },
   { to: "/dashboard/esg", icon: Briefcase, label: "Relatório ESG" },
+  { to: "/conteudo/gerar", icon: Wand2, label: "Gerador de Conteúdo" },
   { to: "/ranking", icon: Trophy, label: "Ranking" },
   { to: "/trilha", icon: Flame, label: "Trilha de Desafios" },
 ];

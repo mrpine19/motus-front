@@ -11,6 +11,7 @@ import SystemLayout from "./SystemLayout";
 import DesafioPage from "./page/DesafioPage";
 import DashboardMentorPage from "./page/DashboardMentorPage";
 import DashboardEsgPage from "./page/DashboardEsgPage";
+import ContentGeneratorPage from "./page/ContentGeneratorPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="trilha" element={<DesafioPage />} />
             <Route path="dashboard/mentor" element={<DashboardMentorPage />} />
             <Route path="/dashboard/esg" element={<DashboardEsgPage />} />
+            <Route path="/conteudo/gerar" element={<ContentGeneratorPage />} />
           </Route>
 
           <Route path="*" element={<div>Página não encontrada</div>} />
