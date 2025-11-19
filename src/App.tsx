@@ -8,6 +8,7 @@ import ContactPage from "./page/ContactPage";
 import MainLayout from "./components/layout/MainLayout";
 import RankingPage from "./page/RankingPage";
 import SystemLayout from "./SystemLayout";
+import DesafioPage from "./page/DesafioPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
 
           <Route path="/" element={<SystemLayout />}>
             <Route path="ranking" element={<RankingPage />} />
+            <Route path="trilha" element={<DesafioPage />} />
           </Route>
 
           <Route path="*" element={<div>Página não encontrada</div>} />

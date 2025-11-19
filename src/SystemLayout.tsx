@@ -1,28 +1,33 @@
-import { Link, Outlet } from "react-router-dom";
-import { LogOut, ShieldCheck } from "lucide-react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { Sidebar } from "./page/Sidebar";
 
 export function SystemLayout() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Futuramente, aqui você chamaria a função de logout do seu AuthContext
+    navigate("/login");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
-      <header className="bg-gray-800/80 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-gray-700">
-        <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="text-cyan-400" />
-            <Link
-              to="/ranking"
-              className="text-xl font-bold text-indigo-500 hover:text-indigo-400"
+    <div className="min-h-screen flex bg-gray-900 text-gray-200">
+      <Sidebar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="bg-gray-800/50 backdrop-blur-sm flex justify-end p-4 border-b border-gray-700/50 flex-shrink-0">
+          <div className="flex items-center">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-gray-300 hover:text-red-400 transition-colors"
             >
-              Motus.IA System
-            </Link>
+              <LogOut size={18} /> Sair
+            </button>
           </div>
-          <button className="flex items-center gap-2 text-gray-300 hover:text-red-400">
-            <LogOut size={18} /> Sair
-          </button>
-        </nav>
-      </header>
-      <main className="grow py-8">
-        <Outlet />
-      </main>
+        </header>
+        <main className="flex-1 overflow-y-auto p-6 md:p-8">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }
