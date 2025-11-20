@@ -9,10 +9,11 @@ import {
 } from "lucide-react";
 
 const navLinks = [
-  { to: "/dashboard/mentor", icon: LayoutDashboard, label: "Painel do Mentor" },
-  { to: "/dashboard/esg", icon: Briefcase, label: "Relatório ESG" },
-  { to: "/conteudo/gerar", icon: Wand2, label: "Gerador de Conteúdo" },
-  { to: "/ranking", icon: Trophy, label: "Ranking" },
+  { to: "/dashboard/mentor", icon: LayoutDashboard, label: "Dashboard do professor" },
+  { to: "/dashboard/esg", icon: Briefcase, label: "Dashboard ESG" },
+  { to: "/conteudo/gerar", icon: Wand2, label: "Gerar conteúdo com IA" },
+  { to: "/alunos/gestao", icon: Wand2, label: "Gerenciar alunos" },
+  { to: "/ranking", icon: Trophy, label: "Ranking semanal" },
   { to: "/trilha", icon: Flame, label: "Trilha de Desafios" },
 ];
 

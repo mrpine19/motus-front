@@ -12,6 +12,7 @@ import DesafioPage from "./page/DesafioPage";
 import DashboardMentorPage from "./page/DashboardMentorPage";
 import DashboardEsgPage from "./page/DashboardEsgPage";
 import ContentGeneratorPage from "./page/ContentGeneratorPage";
+import GestaoPage from "./page/GestaoPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="trilha" element={<DesafioPage />} />
             <Route path="dashboard/mentor" element={<DashboardMentorPage />} />
             <Route path="/dashboard/esg" element={<DashboardEsgPage />} />
+            <Route path="/alunos/gestao" element={<GestaoPage />} />
             <Route path="/conteudo/gerar" element={<ContentGeneratorPage />} />
           </Route>
 
