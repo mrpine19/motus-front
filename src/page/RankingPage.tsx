@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Crown, Medal, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const MOCK_TURMA_ID = 2;
 const MOCK_ALUNO_ID = 4;
 
 interface RankingItem {
@@ -10,61 +9,8 @@ interface RankingItem {
   nomeAluno: string;
   alunoId: number;
   pontuacaoTotal: number;
-  tempoTotalGasto: number; 
+  tempoTotalGasto: number;
 }
-
-// --- Dados Mockados para Desenvolvimento ---
-const mockRankingData: RankingItem[] = [
-  {
-    posicao: 1,
-    alunoId: 1,
-    nomeAluno: "João Silva",
-    pontuacaoTotal: 1500,
-    tempoTotalGasto: 120,
-  },
-  {
-    posicao: 2,
-    alunoId: 2,
-    nomeAluno: "Ana Pereira",
-    pontuacaoTotal: 1450,
-    tempoTotalGasto: 110,
-  },
-  {
-    posicao: 3,
-    alunoId: 3,
-    nomeAluno: "Carlos Souza",
-    pontuacaoTotal: 1300,
-    tempoTotalGasto: 135,
-  },
-  {
-    posicao: 4,
-    alunoId: MOCK_ALUNO_ID,
-    nomeAluno: "Maria Lima",
-    pontuacaoTotal: 1250,
-    tempoTotalGasto: 140,
-  },
-  {
-    posicao: 5,
-    alunoId: 5,
-    nomeAluno: "Pedro Costa",
-    pontuacaoTotal: 1100,
-    tempoTotalGasto: 150,
-  },
-  {
-    posicao: 6,
-    alunoId: 6,
-    nomeAluno: "Sofia Almeida",
-    pontuacaoTotal: 1050,
-    tempoTotalGasto: 160,
-  },
-  {
-    posicao: 7,
-    alunoId: 7,
-    nomeAluno: "Lucas Martins",
-    pontuacaoTotal: 980,
-    tempoTotalGasto: 155,
-  },
-];
 
 export function RankingPage() {
   const [ranking, setRanking] = useState<RankingItem[]>([]);
@@ -76,21 +22,13 @@ export function RankingPage() {
     setLoading(true);
     setError(null);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // --- LÓGICA DE FETCH REAL (COMENTADA PARA USO COM DADOS MOCKADOS) ---
-      /*
-      const response = await fetch(`https://api.motus.ia/ranking/turma/${MOCK_TURMA_ID}`);
+      const response = await fetch(`http://localhost:8080/ranking/turma/1`);
       if (!response.ok) {
         throw new Error("Falha ao buscar dados da API");
       }
       const data: RankingItem[] = await response.json();
       setRanking(data);
-      */
-
-      // Usando dados mockados por enquanto
-      setRanking(mockRankingData);
-    } catch (err) {
+    } catch (err: unknown) {
       setError(
         "Não foi possível carregar o ranking. Verifique sua conexão e tente novamente."
       );
@@ -178,7 +116,7 @@ export function RankingPage() {
         <Trophy className="text-yellow-400" size={36} />
         <h1 className="text-4xl font-bold text-cyan-400">Ranking da Semana</h1>
       </div>
-      <p className="text-gray-400 mb-10">Turma de Teste - ID {MOCK_TURMA_ID}</p>
+      <p className="text-gray-400 mb-10">Turma de Teste - ID 1</p>
 
       <div className="flex justify-center items-end gap-4 md:gap-8 mb-12">
         {podiumOrder.map((orderIndex) => {
@@ -272,7 +210,7 @@ export function RankingPage() {
 
       <button
         onClick={() => navigate("/aulas")}
-        className="mb-12 bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+        className="mt-8 mb-12 bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-6 rounded-lg transition-colors"
       >
         Escolher Próxima Missão
       </button>
