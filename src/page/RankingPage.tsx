@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Crown, Medal, Trophy } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const MOCK_TURMA_ID = 2;
 const MOCK_ALUNO_ID = 4;
@@ -69,6 +70,7 @@ export function RankingPage() {
   const [ranking, setRanking] = useState<RankingItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
@@ -267,6 +269,13 @@ export function RankingPage() {
           );
         })}
       </div>
+
+      <button
+        onClick={() => navigate("/aulas")}
+        className="mb-12 bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+      >
+        Escolher Próxima Missão
+      </button>
     </div>
   );
 }

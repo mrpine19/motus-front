@@ -13,6 +13,7 @@ import DashboardMentorPage from "./page/DashboardMentorPage";
 import DashboardEsgPage from "./page/DashboardEsgPage";
 import ContentGeneratorPage from "./page/ContentGeneratorPage";
 import GestaoPage from "./page/GestaoPage";
+import AulasAtivasPage from "./page/AulasAtivasPage";
 
 function App() {
   return (
@@ -29,11 +30,12 @@ function App() {
 
           <Route path="/" element={<SystemLayout />}>
             <Route path="ranking" element={<RankingPage />} />
-            <Route path="trilha" element={<DesafioPage />} />
+            <Route path="trilha/:idDesafio" element={<DesafioPage />} />
             <Route path="dashboard/mentor" element={<DashboardMentorPage />} />
             <Route path="/dashboard/esg" element={<DashboardEsgPage />} />
             <Route path="/alunos/gestao" element={<GestaoPage />} />
             <Route path="/conteudo/gerar" element={<ContentGeneratorPage />} />
+            <Route path="/aulas" element={<AulasAtivasPage />} />
           </Route>
 
           <Route path="*" element={<div>Página não encontrada</div>} />

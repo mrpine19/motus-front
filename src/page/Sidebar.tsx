@@ -13,8 +13,8 @@ const navLinks = [
   { to: "/dashboard/esg", icon: Briefcase, label: "Dashboard ESG" },
   { to: "/conteudo/gerar", icon: Wand2, label: "Gerar conteúdo com IA" },
   { to: "/alunos/gestao", icon: Wand2, label: "Gerenciar alunos" },
-  { to: "/ranking", icon: Trophy, label: "Ranking semanal" },
-  { to: "/trilha", icon: Flame, label: "Trilha de Desafios" },
+  { to: "/aulas", icon: Flame, label: "Aulas Ativas" },
+  { to: "/ranking", icon: Trophy, label: "Ranking semanal" }
 ];
 
 export function Sidebar() {
