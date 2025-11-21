@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 
 interface EsgDashboardDto {
+  nomePatrocinador: string;
+  idPatrocinador: number;
   roiSocial: number;
   totalAlunosImpactados: number;
   percentualReducaoSkillsGap: number;
@@ -16,15 +18,6 @@ interface EsgDashboardDto {
   taxaRetencaoAlunos: number;
   odsAlinhados: string;
 }
-
-const MOCK_ESG_DATA: EsgDashboardDto = {
-  roiSocial: 45.5,
-  totalAlunosImpactados: 150,
-  percentualReducaoSkillsGap: 35.5,
-  horasMediasUsoPlataforma: 12.5,
-  taxaRetencaoAlunos: 92.0,
-  odsAlinhados: "ODS 4, ODS 8, ODS 10",
-};
 
 export function DashboardEsgPage() {
   const [data, setData] = useState<EsgDashboardDto | null>(null);
@@ -36,22 +29,13 @@ export function DashboardEsgPage() {
       setLoading(true);
       setError(null);
       try {
-        // Simulação de chamada à API com delay
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-        /*
-        const response = await fetch(`http://localhost:8080/dashboard/esg`);
+        const response = await fetch(`http://localhost:8080/dashboard/esg/1`);
         if (!response.ok) {
-          throw new Error('Falha ao buscar dados do dashboard ESG.');
+          throw new Error("Falha ao buscar dados do dashboard ESG.");
         }
         const apiData: EsgDashboardDto = await response.json();
         setData(apiData);
-        */
-
-        // Usando dados mockados
-        setData(MOCK_ESG_DATA);
-      } catch (err) {
+      } catch (err: unknown) {
         setError("Não foi possível carregar os dados do painel de impacto.");
         console.error(err);
       } finally {
@@ -115,7 +99,8 @@ export function DashboardEsgPage() {
             Relatório de Impacto ESG
           </h1>
           <p className="text-gray-400">
-            Dados consolidados do programa de capacitação.
+            Dados consolidados do programa de capacitação -{" "}
+            {data.nomePatrocinador}
           </p>
         </div>
         <button

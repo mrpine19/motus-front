@@ -21,78 +21,7 @@ interface TurmaDashboardDto {
   maioresDificuldades: DificuldadeAreaDto[];
 }
 
-// --- Dados Mockados para Desenvolvimento ---
-const MOCK_DASHBOARD_DATA: TurmaDashboardDto[] = [
-  {
-    id: 1,
-    nome: "Turma A - Lógica de Programação",
-    maioresDificuldades: [
-      { areaCompetencia: "LOGICA", taxaErro: 0.45 },
-      { areaCompetencia: "RESOLUCAO", taxaErro: 0.25 },
-    ],
-    alunos: [
-      {
-        id: 10,
-        nome: "Carlos Andrade",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.8,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 11,
-        nome: "Beatriz Martins",
-        nivelAtual: "Nível Intermediário",
-        taxaAcertoUltimos10: 0.9,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 12,
-        nome: "Daniela Rocha",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.4,
-        teveIntervencaoManual: true,
-      },
-      {
-        id: 13,
-        nome: "Felipe Barros",
-        nivelAtual: "Nível Avançado",
-        taxaAcertoUltimos10: 1.0,
-        teveIntervencaoManual: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    nome: "Turma B - Interpretação de Texto",
-    maioresDificuldades: [
-      { areaCompetencia: "PORTUGUES", taxaErro: 0.6 },
-      { areaCompetencia: "LOGICA", taxaErro: 0.15 },
-    ],
-    alunos: [
-      {
-        id: 20,
-        nome: "Juliana Lima",
-        nivelAtual: "Nível Intermediário",
-        taxaAcertoUltimos10: 0.7,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 21,
-        nome: "Marcos Vinicius",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.3,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 22,
-        nome: "Patricia Alves",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.5,
-        teveIntervencaoManual: true,
-      },
-    ],
-  },
-];
+const MOCK_VOLUNTARIO_ID = 1;
 
 export function DashboardMentorPage() {
   const [turmas, setTurmas] = useState<TurmaDashboardDto[]>([]);
@@ -104,21 +33,15 @@ export function DashboardMentorPage() {
       setLoading(true);
       setError(null);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1200));
-
-        // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-        /*
-        const response = await fetch(`http://localhost:8080/dashboard/voluntario/${MOCK_VOLUNTARIO_ID}`);
+        const response = await fetch(
+          `http://localhost:8080/dashboard/voluntario/${MOCK_VOLUNTARIO_ID}`
+        );
         if (!response.ok) {
-          throw new Error('Falha ao buscar dados do dashboard.');
+          throw new Error("Falha ao buscar dados do dashboard.");
         }
         const data: TurmaDashboardDto[] = await response.json();
         setTurmas(data);
-        */
-
-        // Usando dados mockados
-        setTurmas(MOCK_DASHBOARD_DATA);
-      } catch (err) {
+      } catch (err: unknown) {
         setError("Não foi possível carregar os dados do painel.");
         console.error(err);
       } finally {

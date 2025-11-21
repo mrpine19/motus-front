@@ -5,142 +5,152 @@ interface Turma {
   id: number;
   nome: string;
   descricao: string;
+  voluntarioResponsavel?: string;
 }
 
 interface Aluno {
   id: number;
   nome: string;
   email: string;
-  turmaId: number;
+  nomeTurma: string;
   status: "ATIVO" | "INATIVO";
+  nivelAtual: string;
 }
 
-// Dados Mocados para Simulação
-const MOCK_TURMAS: Turma[] = [
-  {
-    id: 1,
-    nome: "9º Ano - Reforço de Matemática",
-    descricao: "Turma focada em preparar os alunos para a OBMEP.",
-  },
-  {
-    id: 2,
-    nome: "3º Ano EM - Redação para o ENEM",
-    descricao: "Aulas de redação e gramática para o Ensino Médio.",
-  },
-];
-
-const MOCK_ALUNOS: Aluno[] = [
-  {
-    id: 101,
-    nome: "Ana Silva",
-    email: "ana.silva@example.com",
-    turmaId: 1,
-    status: "ATIVO",
-  },
-  {
-    id: 102,
-    nome: "Bruno Costa",
-    email: "bruno.costa@example.com",
-    turmaId: 2,
-    status: "ATIVO",
-  },
-  {
-    id: 103,
-    nome: "Carla Dias",
-    email: "carla.dias@example.com",
-    turmaId: 1,
-    status: "INATIVO",
-  },
-];
+interface AlunoApiResponse {
+  id: number;
+  nome: string;
+  email: string;
+  nomeTurma: string;
+  nivelAtual: string;
+}
 
 const GestaoPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"turmas" | "alunos">("turmas");
   const [turmas, setTurmas] = useState<Turma[]>([]);
   const [alunos, setAlunos] = useState<Aluno[]>([]);
+  const [voluntarios, setVoluntarios] = useState<string[]>([]);
 
-  const [novaTurma, setNovaTurma] = useState({ nome: "", descricao: "" });
+  const [novaTurma, setNovaTurma] = useState({
+    nome: "",
+    descricao: "",
+    voluntario: "",
+  });
   const [novoAluno, setNovoAluno] = useState({
     nome: "",
     email: "",
-    turmaId: 0,
+    nomeTurma: "",
+    nivelAtual: "",
   });
 
   const [showTurmaForm, setShowTurmaForm] = useState(false);
   const [showAlunoForm, setShowAlunoForm] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTurmas(MOCK_TURMAS);
-      setAlunos(MOCK_ALUNOS);
-    }, 500);
-
-    return () => clearTimeout(timer);
-
-    /*
     // GET /api/turmas
-    fetch('/api/turmas')
-      .then(res => res.json())
-      .then(data => setTurmas(data));
+    fetch("http://localhost:8080/turmas")
+      .then((res) => res.json())
+      .then((data) => setTurmas(data));
+
+    // GET /api/voluntarios/nomes
+    fetch("http://localhost:8080/voluntarios/nomes")
+      .then((res) => res.json())
+      .then((data) => setVoluntarios(data));
 
     // GET /api/alunos
-    fetch('/api/alunos')
-      .then(res => res.json())
-      .then(data => setAlunos(data));
-    */
+    fetch("http://localhost:8080/alunos")
+      .then((res) => res.json())
+      .then((data) => {
+        const alunosAdaptados: Aluno[] = data.map(
+          (aluno: AlunoApiResponse) => ({
+            id: aluno.id,
+            nome: aluno.nome,
+            email: aluno.email,
+            nomeTurma: aluno.nomeTurma,
+            nivelAtual: aluno.nivelAtual,
+            status: "ATIVO",
+          })
+        );
+        setAlunos(alunosAdaptados);
+      });
   }, []);
 
   // Simulação de CRUD
   const handleSalvarTurma = (e: React.FormEvent) => {
     e.preventDefault();
-    const turmaParaAdicionar: Turma = {
-      id: Date.now(),
-      ...novaTurma,
-    };
-    setTurmas([...turmas, turmaParaAdicionar]);
-    setNovaTurma({ nome: "", descricao: "" });
-    setShowTurmaForm(false);
+    if (!novaTurma.voluntario) {
+      alert("Por favor, selecione um voluntário.");
+      return;
+    }
 
-    /*
-    // POST /api/turmas
-    fetch('/api/turmas', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(novaTurma),
+    const payload = {
+      nomeDaTurma: novaTurma.nome,
+      descricao: novaTurma.descricao,
+      nomeVoluntarioResponsavel: novaTurma.voluntario,
+    };
+
+    // POST /turmas
+    fetch("http://localhost:8080/turmas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     })
-    .then(res => res.json())
-    .then(turmaSalva => {
-      setTurmas([...turmas, turmaSalva]);
-    });
-    */
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Falha ao criar turma");
+        }
+        return res.json();
+      })
+      .then((turmaSalva) => {
+        //Adapta o objeto retornado para a interface Turma do frontend
+        const turmaAdaptada: Turma = {
+          id: turmaSalva.id,
+          nome: turmaSalva.nomeDaTurma,
+          descricao: turmaSalva.descricao,
+          voluntarioResponsavel: turmaSalva.nomeVoluntarioResponsavel,
+        };
+        setTurmas([...turmas, turmaAdaptada]);
+        setNovaTurma({ nome: "", descricao: "", voluntario: "" });
+        setShowTurmaForm(false);
+      })
+      .catch((error) => console.error("Erro ao salvar turma:", error));
   };
+  useEffect(() => {
+    console.log("Turmas", turmas);
+  });
 
   const handleSalvarAluno = (e: React.FormEvent) => {
     e.preventDefault();
-    if (novoAluno.turmaId === 0) {
+    if (!novoAluno.nomeTurma) {
       alert("Por favor, selecione uma turma.");
       return;
     }
-    const alunoParaAdicionar: Aluno = {
-      id: Date.now(),
-      ...novoAluno,
-      status: "ATIVO",
-    };
-    setAlunos([...alunos, alunoParaAdicionar]);
-    setNovoAluno({ nome: "", email: "", turmaId: 0 }); // Limpa o formulário
-    setShowAlunoForm(false);
+    if (!novoAluno.nivelAtual) {
+      alert("Por favor, selecione um nível para o aluno.");
+      return;
+    }
 
-    /*
-    // POST /api/alunos
-    fetch('/api/alunos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(novoAluno),
+    const payload = {
+      nomeCompleto: novoAluno.nome,
+      email: novoAluno.email,
+      senha: "password1234",
+      nivelAtual: novoAluno.nivelAtual,
+      nomeTurma: novoAluno.nomeTurma,
+    };
+
+    // POST /alunos
+    fetch("http://localhost:8080/alunos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     })
-    .then(res => res.json())
-    .then(alunoSalvo => {
-      setAlunos([...alunos, alunoSalvo]);
-    });
-    */
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then((alunoSalvo) => {
+        setAlunos([...alunos, { ...alunoSalvo, status: "ATIVO" }]);
+        setNovoAluno({ nome: "", email: "", nomeTurma: "", nivelAtual: "" });
+        setShowAlunoForm(false);
+      })
+      .catch((error) => console.error("Erro ao salvar aluno:", error));
   };
 
   return (
@@ -192,7 +202,7 @@ const GestaoPage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-3">
                     Cadastrar Nova Turma
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <input
                       type="text"
                       placeholder="Nome da Turma"
@@ -216,6 +226,26 @@ const GestaoPage: React.FC = () => {
                       className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
                       required
                     />
+                    <select
+                      value={novaTurma.voluntario}
+                      onChange={(e) =>
+                        setNovaTurma({
+                          ...novaTurma,
+                          voluntario: e.target.value,
+                        })
+                      }
+                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      required
+                    >
+                      <option value="" disabled>
+                        Selecione um Voluntário
+                      </option>
+                      {voluntarios.map((nome) => (
+                        <option key={nome} value={nome}>
+                          {nome}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <button
                     type="submit"
@@ -233,6 +263,7 @@ const GestaoPage: React.FC = () => {
                   <tr>
                     <th className="p-4">Nome</th>
                     <th className="p-4">Descrição</th>
+                    <th className="p-4">Voluntário Responsável</th>
                     <th className="p-4">Ações</th>
                   </tr>
                 </thead>
@@ -241,6 +272,9 @@ const GestaoPage: React.FC = () => {
                     <tr key={turma.id} className="border-b border-gray-700">
                       <td className="p-4">{turma.nome}</td>
                       <td className="p-4">{turma.descricao}</td>
+                      <td className="p-4">
+                        {turma.voluntarioResponsavel || "N/A"}
+                      </td>
                       <td className="p-4">
                         <button className="text-red-400 hover:text-red-500">
                           <Trash2 size={20} />
@@ -271,7 +305,7 @@ const GestaoPage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-3">
                     Cadastrar Novo Aluno
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <input
                       type="text"
                       placeholder="Nome Completo"
@@ -293,24 +327,42 @@ const GestaoPage: React.FC = () => {
                       required
                     />
                     <select
-                      value={novoAluno.turmaId}
+                      value={novoAluno.nomeTurma}
                       onChange={(e) =>
                         setNovoAluno({
                           ...novoAluno,
-                          turmaId: Number(e.target.value),
+                          nomeTurma: e.target.value,
                         })
                       }
                       className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
                       required
                     >
-                      <option value={0} disabled>
+                      <option value="" disabled>
                         Selecione a Turma
                       </option>
                       {turmas.map((turma) => (
-                        <option key={turma.id} value={turma.id}>
+                        <option key={turma.id} value={turma.nome}>
                           {turma.nome}
                         </option>
                       ))}
+                    </select>
+                    <select
+                      value={novoAluno.nivelAtual}
+                      onChange={(e) =>
+                        setNovoAluno({
+                          ...novoAluno,
+                          nivelAtual: e.target.value,
+                        })
+                      }
+                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      required
+                    >
+                      <option value="" disabled>
+                        Selecione o Nível
+                      </option>
+                      <option value="Básico">Básico</option>
+                      <option value="Médio">Médio</option>
+                      <option value="Avançado">Avançado</option>
                     </select>
                   </div>
                   <button
@@ -330,6 +382,7 @@ const GestaoPage: React.FC = () => {
                     <th className="p-4">Nome</th>
                     <th className="p-4">Email</th>
                     <th className="p-4">Turma Vinculada</th>
+                    <th className="p-4">Nível Atual</th>
                     <th className="p-4">Status</th>
                     <th className="p-4">Ações</th>
                   </tr>
@@ -339,10 +392,8 @@ const GestaoPage: React.FC = () => {
                     <tr key={aluno.id} className="border-b border-gray-700">
                       <td className="p-4">{aluno.nome}</td>
                       <td className="p-4">{aluno.email}</td>
-                      <td className="p-4">
-                        {turmas.find((t) => t.id === aluno.turmaId)?.nome ||
-                          "N/A"}
-                      </td>
+                      <td className="p-4">{aluno.nomeTurma || "N/A"}</td>
+                      <td className="p-4">{aluno.nivelAtual}</td>
                       <td className="p-4">
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-semibold ${
