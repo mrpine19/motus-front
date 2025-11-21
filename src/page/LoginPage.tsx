@@ -4,7 +4,7 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/ranking");
+    navigate("/dashboard/mentor");
   };
 
   return (

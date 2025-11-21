@@ -16,10 +16,9 @@ const MOCK_ALUNO_ID = 4;
 interface DesafioData {
   id: number;
   titulo: string;
-  materialExplicativo: string;
-  perguntaInterativa: string;
+  descricao: string;
   urlImagem?: string;
-  areaCompetencia: "LOGICA" | "PORTUGUES" | "RESOLUCAO";
+  areaCompetencia: string;
   nivelDificuldade: string;
 }
 
@@ -36,19 +35,6 @@ interface FeedbackDTO {
   pontosGanhos: number;
   novaStreak: number;
 }
-
-const MOCK_DESAFIO: DesafioData = {
-  id: 101,
-  titulo: "O Enigma dos Potes de Água",
-  materialExplicativo:
-    "Problemas de lógica com recipientes são clássicos para treinar o raciocínio sequencial. A chave é usar a diferença de capacidade entre os recipientes para isolar a quantidade desejada. Você pode encher, esvaziar e transferir o conteúdo de um para o outro. Pense em como a capacidade de 5L e 3L pode resultar em 4L através de uma série de passos.",
-  perguntaInterativa:
-    "Com um pote de 5 litros e outro de 3 litros, e uma fonte de água infinita, descreva o passo a passo para medir exatamente 4 litros.",
-  urlImagem:
-    "https://images.unsplash.com/photo-1595431678408-b25cf373a469?q=80&w=1974&auto=format&fit=crop",
-  areaCompetencia: "LOGICA",
-  nivelDificuldade: "Médio",
-};
 
 const MOCK_FEEDBACK_ACERTO: FeedbackDTO = {
   acertou: true,
@@ -81,25 +67,19 @@ export function DesafioPage() {
   useEffect(() => {
     const fetchData = async (id: number) => {
       setLoading(true);
-      // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-      /*
-        try {
-          const response = await fetch(`/api/desafios/${id}`);
-          if (!response.ok) throw new Error("Desafio não encontrado.");
-          const data: DesafioData = await response.json();
-          setDesafio(data);
-        } catch (error) {
-          console.error("Erro ao buscar desafio:", error);
-          navigate('/aulas'); // Redireciona se o desafio não for encontrado
-        } finally {
-          setLoading(false);
+      try {
+        const response = await fetch(`http://localhost:8080/desafios/${id}`);
+        if (!response.ok) {
+          throw new Error("Desafio não encontrado.");
         }
-        */
-
-      // Usando mock com um pequeno delay para simular a API
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setDesafio({ ...MOCK_DESAFIO, id });
-      setLoading(false);
+        const data: DesafioData = await response.json();
+        setDesafio(data);
+      } catch (error) {
+        console.error("Erro ao buscar desafio:", error);
+        navigate("/aulas");
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (idDesafio) {
@@ -169,14 +149,7 @@ export function DesafioPage() {
   };
 
   const handleNextChallenge = () => {
-    setDesafio({
-      ...MOCK_DESAFIO,
-      id: (desafio?.id || 0) + Math.floor(Math.random() * 10),
-    });
-    setResposta("");
-    setTempoGasto(0);
-    setFeedback(null);
-    setSubmitted(false);
+    navigate("/aulas");
   };
 
   if (loading && !feedback) {
@@ -273,7 +246,8 @@ export function DesafioPage() {
           />
         )}
         <p className="text-gray-300 leading-relaxed text-lg">
-          {desafio.materialExplicativo}
+          {/* O campo 'descricao' agora serve como material de apoio e pergunta */}
+          Use o espaço abaixo para responder ao desafio proposto no título.
         </p>
       </div>
       
@@ -282,7 +256,7 @@ export function DesafioPage() {
           <HelpCircle size={22} /> Seu Desafio
         </h2>
         <p className="text-gray-200 leading-relaxed text-lg mb-6">
-          {desafio.perguntaInterativa}
+          {desafio.descricao}
         </p>
         <div className="bg-gray-800/50 p-6 rounded-b-lg">
           <textarea

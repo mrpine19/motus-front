@@ -1,53 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Target, BookOpen, LoaderCircle } from "lucide-react";
+import { Target, BookOpen, LoaderCircle, User } from "lucide-react";
 
 interface AulaAtiva {
   id: number;
   titulo: string;
   areaCompetencia: string;
   nivelDificuldade: string;
-  dataCriacao: string;
+  nomeVoluntario: string;
 }
-
-// --- Dados Mockados para Desenvolvimento ---
-const MOCK_AULAS_ATIVAS: AulaAtiva[] = [
-  {
-    id: 101,
-    titulo: "O Enigma dos Potes de Água",
-    areaCompetencia: "LOGICA",
-    nivelDificuldade: "Médio",
-    dataCriacao: "2025-11-18",
-  },
-  {
-    id: 205,
-    titulo: "Interpretação de Charges",
-    areaCompetencia: "PORTUGUES",
-    nivelDificuldade: "Básico",
-    dataCriacao: "2025-11-17",
-  },
-  {
-    id: 301,
-    titulo: "O Problema da Travessia do Rio",
-    areaCompetencia: "RESOLUCAO",
-    nivelDificuldade: "Avançado",
-    dataCriacao: "2025-11-19",
-  },
-  {
-    id: 402,
-    titulo: "Sequências Numéricas",
-    areaCompetencia: "LOGICA",
-    nivelDificuldade: "Básico",
-    dataCriacao: "2025-11-20",
-  },
-  {
-    id: 505,
-    titulo: "Uso da Crase em Textos",
-    areaCompetencia: "PORTUGUES",
-    nivelDificuldade: "Médio",
-    dataCriacao: "2025-11-15",
-  },
-];
 
 export function AulasAtivasPage() {
   const [aulas, setAulas] = useState<AulaAtiva[]>([]);
@@ -57,29 +18,24 @@ export function AulasAtivasPage() {
   useEffect(() => {
     const fetchAulas = async () => {
       setLoading(true);
-      // Simula delay da API
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-      /*
       try {
-        const response = await fetch('/api/desafios/ativas');
+        const response = await fetch("http://localhost:8080/desafios");
         if (!response.ok) {
-          throw new Error('Falha ao buscar desafios ativos.');
+          throw new Error("Falha ao buscar desafios ativos.");
         }
-        const data: AulaAtiva[] = await response.json();
-        setAulas(data);
+        
+        const data: { desafios: AulaAtiva[] }[] = await response.json();
+        if (data && data.length > 0 && data[0].desafios) {
+          setAulas(data[0].desafios);
+        } else {
+          setAulas([]);
+        }
       } catch (error) {
         console.error("Erro ao buscar aulas:", error);
-        // Tratar erro, talvez mostrar uma mensagem para o usuário
       } finally {
         setLoading(false);
       }
-      */
-
-      // Usando dados mockados
-      setAulas(MOCK_AULAS_ATIVAS);
-      setLoading(false);
     };
 
     fetchAulas();
@@ -89,6 +45,7 @@ export function AulasAtivasPage() {
     Básico: "bg-green-500/20 text-green-400 border-green-500/30",
     Médio: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
     Avançado: "bg-red-500/20 text-red-400 border-red-500/30",
+    Desconhecido: "bg-gray-500/20 text-gray-400 border-gray-500/30",
   };
 
   const handleIniciarDesafio = (id: number) => {
@@ -130,9 +87,10 @@ export function AulasAtivasPage() {
                   {aula.nivelDificuldade}
                 </span>
               </div>
-              <p className="text-sm text-gray-400 mb-4 flex items-center gap-2">
-                <BookOpen size={16} /> {aula.areaCompetencia}
-              </p>
+              <div className="text-sm text-gray-400 mb-4 space-y-2">
+                <p className="flex items-center gap-2"><BookOpen size={16} /> {aula.areaCompetencia}</p>
+                <p className="flex items-center gap-2"><User size={16} /> Criado por: {aula.nomeVoluntario}</p>
+              </div>
             </div>
             <button
               onClick={() => handleIniciarDesafio(aula.id)}
