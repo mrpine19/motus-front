@@ -56,40 +56,40 @@ export function RankingPage() {
   const podiumPlacements = [
     {
       rank: 2,
-      color: "border-gray-300",
-      shadow: "shadow-gray-400/20",
-      iconColor: "text-gray-300",
+      color: "border-gray-400",
+      shadow: "shadow-gray-500/20",
+      iconColor: "text-gray-500",
     },
     {
       rank: 1,
-      color: "border-yellow-400",
-      shadow: "shadow-yellow-500/30",
-      iconColor: "text-yellow-400",
+      color: "border-yellow-500",
+      shadow: "shadow-yellow-600/30",
+      iconColor: "text-yellow-500",
     },
     {
       rank: 3,
-      color: "border-orange-400",
-      shadow: "shadow-orange-500/20",
-      iconColor: "text-orange-400",
+      color: "border-orange-500",
+      shadow: "shadow-orange-600/20",
+      iconColor: "text-orange-500",
     },
   ];
 
-  const podiumOrder = [1, 0, 2]; // 2º, 1º, 3º
+  const podiumOrder = [1, 0, 2];
 
   if (loading) {
     return (
       <div className="container mx-auto px-4 text-center animate-pulse">
-        <div className="h-10 bg-gray-700 rounded w-1/3 mx-auto mb-4"></div>
-        <div className="h-6 bg-gray-700 rounded w-1/4 mx-auto mb-12"></div>
+        <div className="h-10 bg-white/50 rounded w-1/3 mx-auto mb-4"></div>
+        <div className="h-6 bg-white/50 rounded w-1/4 mx-auto mb-12"></div>
         <div className="flex justify-center items-end gap-4 mb-12">
-          <div className="w-40 h-48 bg-gray-800 rounded-lg"></div>
-          <div className="w-48 h-56 bg-gray-800 rounded-lg"></div>
-          <div className="w-40 h-48 bg-gray-800 rounded-lg"></div>
+          <div className="w-40 h-48 bg-white/50 rounded-xl"></div>
+          <div className="w-48 h-56 bg-white/50 rounded-xl"></div>
+          <div className="w-40 h-48 bg-white/50 rounded-xl"></div>
         </div>
         <div className="space-y-3 max-w-3xl mx-auto">
-          <div className="h-16 bg-gray-800 rounded-lg"></div>
-          <div className="h-16 bg-gray-800 rounded-lg"></div>
-          <div className="h-16 bg-gray-800 rounded-lg"></div>
+          <div className="h-16 bg-white/50 rounded-xl"></div>
+          <div className="h-16 bg-white/50 rounded-xl"></div>
+          <div className="h-16 bg-white/50 rounded-xl"></div>
         </div>
       </div>
     );
@@ -97,12 +97,12 @@ export function RankingPage() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 text-center text-gray-300">
+      <div className="container mx-auto px-4 text-center text-[#1a1a1a]">
         <h1 className="text-2xl font-bold mb-4">Ops! Algo deu errado.</h1>
         <p className="mb-6">{error}</p>
         <button
           onClick={fetchData}
-          className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+          className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
         >
           Tentar Novamente
         </button>
@@ -113,10 +113,10 @@ export function RankingPage() {
   return (
     <div className="container mx-auto px-4 text-center">
       <div className="flex justify-center items-center gap-3 mb-2">
-        <Trophy className="text-yellow-400" size={36} />
-        <h1 className="text-4xl font-bold text-cyan-400">Ranking da Semana</h1>
+        <Trophy className="text-yellow-500" size={36} />
+        <h1 className="text-4xl font-bold text-[#1a1a1a]">Ranking da Semana</h1>
       </div>
-      <p className="text-gray-400 mb-10">Turma de Teste - ID 1</p>
+      <p className="text-[#1a1a1a] mb-10">Turma de Teste - ID 1</p>
 
       <div className="flex justify-center items-end gap-4 md:gap-8 mb-12">
         {podiumOrder.map((orderIndex) => {
@@ -131,8 +131,8 @@ export function RankingPage() {
           return (
             <div
               key={player.alunoId}
-              className={`relative flex flex-col items-center bg-gray-800/70 p-4 rounded-lg border-2 transition-all duration-300
-                ${podiumInfo.color} ${podiumInfo.shadow} shadow-lg
+              className={`relative flex flex-col items-center bg-white/90 backdrop-blur-sm p-4 rounded-xl border-2 transition-all duration-300
+                ${podiumInfo.color} ${podiumInfo.shadow} shadow-xl
                 ${
                   isFirstPlace
                     ? "w-40 md:w-48 h-56 transform scale-110 z-10"
@@ -140,24 +140,24 @@ export function RankingPage() {
                 }`}
             >
               {isFirstPlace && (
-                <Crown className="absolute -top-5 text-yellow-400" size={36} />
+                <Crown className="absolute -top-5 text-yellow-500" size={36} />
               )}
 
               <div className="relative w-20 h-20 mb-3">
-                <div className="w-full h-full rounded-full bg-gray-700 flex items-center justify-center text-2xl font-bold text-gray-300 border-2 border-gray-600">
+                <div className="w-full h-full rounded-full bg-gray-100 flex items-center justify-center text-2xl font-bold text-[#1a1a1a] border-2 border-gray-300">
                   {getInitials(player.nomeAluno)}
                 </div>
                 <div
-                  className={`absolute -bottom-2 -right-2 p-1.5 rounded-full bg-gray-900 ${podiumInfo.iconColor}`}
+                  className={`absolute -bottom-2 -right-2 p-1.5 rounded-full bg-white border border-gray-300 ${podiumInfo.iconColor}`}
                 >
                   <Medal size={20} />
                 </div>
               </div>
 
-              <p className="font-bold text-gray-100 truncate w-full">
+              <p className="font-bold text-[#1a1a1a] truncate w-full">
                 {player.nomeAluno}
               </p>
-              <p className="text-sm text-indigo-400 font-semibold">
+              <p className="text-sm text-cyan-600 font-semibold">
                 {player.pontuacaoTotal} pts
               </p>
             </div>
@@ -171,36 +171,36 @@ export function RankingPage() {
           return (
             <div
               key={item.alunoId}
-              className={`flex items-center bg-gray-800/50 p-4 rounded-lg border border-gray-700 transition-all
+              className={`flex items-center bg-white/90 backdrop-blur-sm p-4 rounded-xl border border-gray-300 transition-all duration-300
                 ${
                   isCurrentUser
-                    ? "border-cyan-400 ring-2 ring-cyan-400/50 bg-indigo-900/30"
-                    : "hover:bg-gray-700/50"
+                    ? "border-cyan-500 ring-2 ring-cyan-500/50 bg-cyan-50/50"
+                    : "hover:bg-white/70 hover:shadow-md"
                 }`}
             >
-              <div className="w-12 text-xl font-bold text-gray-400">
+              <div className="w-12 text-xl font-bold text-[#1a1a1a]">
                 {item.posicao}º
               </div>
 
               <div className="flex-1 flex items-center gap-4 text-left">
-                <div className="w-12 h-12 rounded-full bg-gray-700 flex-shrink-0 flex items-center justify-center font-bold text-gray-300">
+                <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0 flex items-center justify-center font-bold text-[#1a1a1a] border border-gray-300">
                   {getInitials(item.nomeAluno)}
                 </div>
                 <div className="flex-grow">
-                  <p className="font-semibold text-gray-100">
+                  <p className="font-semibold text-[#1a1a1a]">
                     {item.nomeAluno}
                   </p>
-                  <p className="text-xs text-gray-500">ID: {item.alunoId}</p>
+                  <p className="text-xs text-[#1a1a1a]/70">ID: {item.alunoId}</p>
                 </div>
               </div>
 
               {isCurrentUser && (
-                <span className="bg-cyan-500 text-white text-xs font-bold mr-4 px-2.5 py-1 rounded-full">
+                <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold mr-4 px-2.5 py-1 rounded-full">
                   VOCÊ
                 </span>
               )}
 
-              <div className="w-28 text-right font-bold text-cyan-400 text-lg">
+              <div className="w-28 text-right font-bold text-cyan-600 text-lg">
                 {item.pontuacaoTotal} pts
               </div>
             </div>
@@ -210,7 +210,7 @@ export function RankingPage() {
 
       <button
         onClick={() => navigate("/aulas")}
-        className="mt-8 mb-12 bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+        className="mt-8 mb-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
       >
         Escolher Próxima Missão
       </button>

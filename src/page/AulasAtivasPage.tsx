@@ -42,10 +42,10 @@ export function AulasAtivasPage() {
   }, []);
 
   const nivelCores: Record<string, string> = {
-    Básico: "bg-green-500/20 text-green-400 border-green-500/30",
-    Médio: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    Avançado: "bg-red-500/20 text-red-400 border-red-500/30",
-    Desconhecido: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+    Básico: "bg-green-100 text-green-800 border-green-300",
+    Médio: "bg-yellow-100 text-yellow-800 border-yellow-300",
+    Avançado: "bg-red-100 text-red-800 border-red-300",
+    Desconhecido: "bg-gray-100 text-gray-800 border-gray-300",
   };
 
   const handleIniciarDesafio = (id: number) => {
@@ -55,8 +55,8 @@ export function AulasAtivasPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center text-center h-64">
-        <LoaderCircle className="animate-spin text-cyan-400 mb-4" size={48} />
-        <p className="text-gray-400">Carregando missões disponíveis...</p>
+        <LoaderCircle className="animate-spin text-cyan-600 mb-4" size={48} />
+        <p className="text-[#1a1a1a]">Carregando missões disponíveis...</p>
       </div>
     );
   }
@@ -64,37 +64,43 @@ export function AulasAtivasPage() {
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center gap-3 mb-8">
-        <Target className="text-cyan-400" size={32} />
-        <h1 className="text-3xl font-bold text-gray-100">Escolha Sua Missão</h1>
+        <Target className="text-cyan-600" size={32} />
+        <h1 className="text-3xl font-bold text-[#1a1a1a]">Escolha Sua Missão</h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {aulas.map((aula) => (
           <div
             key={aula.id}
-            className="bg-gray-800/80 border border-gray-700 rounded-lg p-6 flex flex-col justify-between hover:border-cyan-400/50 hover:shadow-lg transition-all"
+            className="bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 flex flex-col justify-between hover:border-cyan-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <div>
               <div className="flex justify-between items-start mb-3">
-                <h2 className="text-xl font-bold text-gray-100">
+                <h2 className="text-xl font-bold text-[#1a1a1a]">
                   {aula.titulo}
                 </h2>
                 <span
                   className={`px-2.5 py-1 text-xs font-bold rounded-full border whitespace-nowrap ${
-                    nivelCores[aula.nivelDificuldade] || "bg-gray-500/20"
+                    nivelCores[aula.nivelDificuldade] || "bg-gray-100 text-gray-800 border-gray-300"
                   }`}
                 >
                   {aula.nivelDificuldade}
                 </span>
               </div>
-              <div className="text-sm text-gray-400 mb-4 space-y-2">
-                <p className="flex items-center gap-2"><BookOpen size={16} /> {aula.areaCompetencia}</p>
-                <p className="flex items-center gap-2"><User size={16} /> Criado por: {aula.nomeVoluntario}</p>
+              <div className="text-sm text-[#1a1a1a] mb-4 space-y-2">
+                <p className="flex items-center gap-2">
+                  <BookOpen size={16} className="text-cyan-600" /> 
+                  {aula.areaCompetencia}
+                </p>
+                <p className="flex items-center gap-2">
+                  <User size={16} className="text-cyan-600" /> 
+                  Criado por: {aula.nomeVoluntario}
+                </p>
               </div>
             </div>
             <button
               onClick={() => handleIniciarDesafio(aula.id)}
-              className="w-full mt-4 bg-teal-600 text-white font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             >
               Iniciar Desafio
             </button>

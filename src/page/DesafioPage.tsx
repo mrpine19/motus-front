@@ -156,8 +156,8 @@ export function DesafioPage() {
     return (
       <div className="bg-[#38b7ff] p-8">
         <div className="flex flex-col items-center justify-center text-center h-64">
-          <LoaderCircle className="animate-spin text-cyan-500 mb-4" size={48} />
-          <p className="text-gray-800">Carregando desafio...</p>
+          <LoaderCircle className="animate-spin text-cyan-600 mb-4" size={48} />
+          <p className="text-[#1a1a1a]">Carregando desafio...</p>
         </div>
       </div>
     );
@@ -169,45 +169,45 @@ export function DesafioPage() {
       <div className="bg-[#38b7ff] p-8">
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <div
-            className={`p-8 rounded-xl bg-white/50 border-2 ${
-              isCorrect ? "border-teal-500" : "border-red-500"
-            }`}
+            className={`p-8 rounded-xl bg-white/90 backdrop-blur-sm border-2 ${
+              isCorrect ? "border-green-500" : "border-red-500"
+            } shadow-xl`}
           >
             <div className="flex justify-center mb-4">
               {isCorrect ? (
-                <CheckCircle size={48} className="text-teal-500" />
+                <CheckCircle size={48} className="text-green-600" />
               ) : (
-                <XCircle size={48} className="text-red-500" />
+                <XCircle size={48} className="text-red-600" />
               )}
             </div>
             <h2
               className={`text-2xl font-bold ${
-                isCorrect ? "text-teal-600" : "text-red-600"
+                isCorrect ? "text-green-600" : "text-red-600"
               }`}
             >
               {isCorrect ? "Resposta Correta!" : "Opa, não foi desta vez!"}
             </h2>
-            <p className="text-gray-800 mt-2 mb-6">{feedback.feedback}</p>
+            <p className="text-[#1a1a1a] mt-2 mb-6">{feedback.feedback}</p>
             <div className="flex justify-center gap-6 text-lg">
-              <p className="font-semibold text-gray-800">
+              <p className="font-semibold text-[#1a1a1a]">
                 Pontos:{" "}
                 <span className="text-cyan-600">+{feedback.pontosGanhos}</span>
               </p>
-              <p className="font-semibold text-gray-800">
+              <p className="font-semibold text-[#1a1a1a]">
                 Streak:{" "}
-                <span className="text-indigo-600">{feedback.novaStreak}🔥</span>
+                <span className="text-blue-600">{feedback.novaStreak}🔥</span>
               </p>
             </div>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => navigate("/aulas")}
-                className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors"
+                className="w-full bg-gray-300 hover:bg-gray-400 text-[#1a1a1a] font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
               >
                 Ver Outras Missões
               </button>
               <button
                 onClick={handleNextChallenge}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-500"
               >
                 Próximo Desafio
               </button>
@@ -220,81 +220,80 @@ export function DesafioPage() {
 
   if (!desafio) {
     return (
-    <div className="bg-[#38b7ff] p-8">
-        <div>Desafio não encontrado.</div>
-    </div>
-  );
+      <div className="bg-[#38b7ff] p-8">
+        <div className="text-[#1a1a1a] text-center">Desafio não encontrado.</div>
+      </div>
+    );
   }
 
   return (
     <div className="bg-[#38b7ff] p-8">
-    <div className="container mx-auto px-4 max-w-3xl">
-      <div className="relative bg-white/50 border border-gray-300 rounded-lg p-6 mb-6">
-        <div className="absolute top-4 right-4 flex items-center gap-2 text-cyan-600 font-mono text-lg bg-white/50 px-3 py-1 rounded-full">
-          <Clock size={20} />
-          <span>{formatTime(tempoGasto)}</span>
+      <div className="container mx-auto px-4 max-w-3xl">
+        <div className="relative bg-white/90 backdrop-blur-sm border border-gray-300 rounded-xl p-6 mb-6 shadow-lg">
+          <div className="absolute top-4 right-4 flex items-center gap-2 text-cyan-600 font-mono text-lg bg-white/80 px-3 py-1 rounded-full border border-gray-300">
+            <Clock size={20} />
+            <span>{formatTime(tempoGasto)}</span>
+          </div>
+          <div className="flex items-center gap-3 mb-4">
+            <Brain className="text-blue-600" size={28} />
+            <h1 className="text-3xl font-bold text-[#1a1a1a]">{desafio.titulo}</h1>
+          </div>
+          <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full border border-blue-300">
+            {desafio.areaCompetencia} - {desafio.nivelDificuldade}
+          </span>
         </div>
-        <div className="flex items-center gap-3 mb-4">
-          <Brain className="text-indigo-500" size={28} />
-          <h1 className="text-3xl font-bold text-gray-800">{desafio.titulo}</h1>
-        </div>
-        <span className="text-xs font-semibold bg-indigo-200 text-indigo-800 px-2 py-1 rounded-full">
-          {desafio.areaCompetencia} - {desafio.nivelDificuldade}
-        </span>
-      </div>
 
-      <div className="bg-white/80 border border-gray-300 rounded-lg p-6 mb-8 space-y-4">
-        <h2 className="text-xl font-bold text-cyan-600 flex items-center gap-2">
-          <BookText size={22} /> Material de Apoio
-        </h2>
-        {desafio.urlImagem && (
-          <img
-            src={desafio.urlImagem}
-            alt="Visual do desafio"
-            className="rounded-lg w-full h-64 object-cover my-4"
-          />
-        )}
-        <p className="text-gray-800 leading-relaxed text-lg">
-          {/* O campo 'descricao' agora serve como material de apoio e pergunta */}
-          Use o espaço abaixo para responder ao desafio proposto no título.
-        </p>
-      </div>
-      
-      <div className="bg-white/50 border border-teal-500/30 rounded-lg p-6">
-        <h2 className="text-xl font-bold text-teal-600 flex items-center gap-2 mb-4">
-          <HelpCircle size={22} /> Seu Desafio
-        </h2>
-        <p className="text-gray-800 leading-relaxed text-lg mb-6">
-          {desafio.descricao}
-        </p>
-        <div className="bg-white/50 p-6 rounded-b-lg">
-          <textarea
-            value={resposta}
-            onChange={(e) => setResposta(e.target.value)}
-            placeholder="Digite sua solução aqui..."
-            className="w-full h-40 p-4 bg-gray-200 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-            disabled={submitted}
-          />
-          <button
-            onClick={handleSubmit}
-            disabled={!resposta.trim() || submitted}
-            className="mt-4 w-full flex items-center justify-center gap-2 bg-teal-600 text-white font-bold py-3 px-4 rounded-lg transition-colors hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-white"
-          >
-            {loading && submitted ? (
-              <>
-                <div className="w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin"></div>
-                <span>Enviando...</span>
-              </>
-            ) : (
-              <>
-                <Send size={18} />
-                <span>Submeter Resposta</span>
-              </>
-            )}
-          </button>
+        <div className="bg-white/90 backdrop-blur-sm border border-gray-300 rounded-xl p-6 mb-8 space-y-4 shadow-lg">
+          <h2 className="text-xl font-bold text-cyan-600 flex items-center gap-2">
+            <BookText size={22} /> Material de Apoio
+          </h2>
+          {desafio.urlImagem && (
+            <img
+              src={desafio.urlImagem}
+              alt="Visual do desafio"
+              className="rounded-xl w-full h-64 object-cover my-4 border border-gray-300"
+            />
+          )}
+          <p className="text-[#1a1a1a] leading-relaxed text-lg">
+            Use o espaço abaixo para responder ao desafio proposto no título.
+          </p>
+        </div>
+        
+        <div className="bg-white/90 backdrop-blur-sm border border-cyan-500/50 rounded-xl p-6 shadow-lg">
+          <h2 className="text-xl font-bold text-cyan-600 flex items-center gap-2 mb-4">
+            <HelpCircle size={22} /> Seu Desafio
+          </h2>
+          <p className="text-[#1a1a1a] leading-relaxed text-lg mb-6">
+            {desafio.descricao}
+          </p>
+          <div className="bg-white/50 p-6 rounded-lg border border-gray-300">
+            <textarea
+              value={resposta}
+              onChange={(e) => setResposta(e.target.value)}
+              placeholder="Digite sua solução aqui..."
+              className="w-full h-40 p-4 bg-white border border-gray-300 rounded-lg text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+              disabled={submitted}
+            />
+            <button
+              onClick={handleSubmit}
+              disabled={!resposta.trim() || submitted}
+              className="mt-4 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+            >
+              {loading && submitted ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin"></div>
+                  <span>Enviando...</span>
+                </>
+              ) : (
+                <>
+                  <Send size={18} />
+                  <span>Submeter Resposta</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

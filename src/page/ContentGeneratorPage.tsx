@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Wand2, Save, LoaderCircle, Check } from "lucide-react";
 
-// --- Constante de Simulação ---
-//const MOCK_VOLUNTARIO_ID = 1;
-
 interface SugestaoIA {
   nivel: "Básico" | "Médio" | "Avançado";
   titulo: string;
@@ -57,29 +54,6 @@ export function ContentGeneratorPage() {
 
     await new Promise((resolve) => setTimeout(resolve, 4000));
 
-    // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-    /*
-    try {
-      const response = await fetch('/api/gerador-conteudo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tema, area, voluntarioId: MOCK_VOLUNTARIO_ID })
-      });
-
-      if (!response.ok) {
-        throw new Error('Falha ao gerar conteúdo.');
-      }
-
-      const data: SugestaoIA[] = await response.json();
-      setSugestoes(data);
-    } catch (error) {
-      console.error(error);
-      setStatus('idle'); // Volta ao estado inicial em caso de erro
-      alert('Ocorreu um erro ao se comunicar com a IA.');
-    }
-    */
-
-    // Usando dados mockados
     setSugestoes(MOCK_SUGESTOES);
     setStatus("reviewing");
   };
@@ -98,29 +72,6 @@ export function ContentGeneratorPage() {
     setStatus("loading");
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-    /*
-    try {
-      const response = await fetch('/api/desafios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(sugestoes)
-      });
-
-      if (!response.ok) {
-        throw new Error('Falha ao publicar desafios.');
-      }
-      
-      setStatus('published');
-    } catch (error) {
-      console.error(error);
-      setStatus('reviewing'); // Volta para revisão em caso de erro
-      alert('Ocorreu um erro ao publicar o conteúdo.');
-    }
-    */
-
-    // Simulação de sucesso
     setStatus("published");
   };
 
@@ -139,22 +90,21 @@ export function ContentGeneratorPage() {
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center gap-3 mb-2">
-        <Wand2 className="text-cyan-400" size={32} />
-        <h1 className="text-3xl font-bold text-gray-100">
+        <Wand2 className="text-cyan-600" size={32} />
+        <h1 className="text-3xl font-bold text-[#1a1a1a]">
           Assistente de Conteúdo (IA)
         </h1>
       </div>
-      <p className="text-gray-400 mb-8">
+      <p className="text-[#1a1a1a] mb-8">
         Gere, revise e publique desafios de forma adaptativa.
       </p>
 
-      {/* Card de Prompt */}
-      <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 mb-8">
+      <div className="bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 mb-8 shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
           <div className="md:col-span-2">
             <label
               htmlFor="tema"
-              className="block text-sm font-bold text-gray-300 mb-2"
+              className="block text-sm font-bold text-[#1a1a1a] mb-2"
             >
               Tema do Desafio
             </label>
@@ -164,14 +114,14 @@ export function ContentGeneratorPage() {
               value={tema}
               onChange={(e) => setTema(e.target.value)}
               placeholder="Ex: Problemas de lógica com potes de água"
-              className="w-full bg-gray-700 border-gray-600 rounded-md py-2 px-3 text-gray-200 focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-white border-gray-300 rounded-lg py-2 px-3 text-[#1a1a1a] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
               disabled={status === "loading"}
             />
           </div>
           <div>
             <label
               htmlFor="area"
-              className="block text-sm font-bold text-gray-300 mb-2"
+              className="block text-sm font-bold text-[#1a1a1a] mb-2"
             >
               Área de Competência
             </label>
@@ -179,7 +129,7 @@ export function ContentGeneratorPage() {
               id="area"
               value={area}
               onChange={(e) => setArea(e.target.value)}
-              className="w-full bg-gray-700 border-gray-600 rounded-md py-2 px-3 text-gray-200 focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-white border-gray-300 rounded-lg py-2 px-3 text-[#1a1a1a] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
               disabled={status === "loading"}
             >
               <option value="LOGICA">Lógica</option>
@@ -191,7 +141,7 @@ export function ContentGeneratorPage() {
         <button
           onClick={handleGenerate}
           disabled={status === "loading" || !tema.trim()}
-          className="mt-6 w-full md:w-auto flex items-center justify-center gap-2 bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg transition-colors hover:bg-cyan-500 disabled:bg-gray-600 disabled:cursor-wait"
+          className="mt-6 w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
         >
           {status === "loading" ? (
             <>
@@ -205,25 +155,22 @@ export function ContentGeneratorPage() {
         </button>
       </div>
 
-      {/* Área de Resultados */}
       {status === "reviewing" && sugestoes.length > 0 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-200">
+          <h2 className="text-xl font-bold text-[#1a1a1a]">
             Revisão Humana: Edite o conteúdo gerado
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {sugestoes.map((sugestao, index) => (
               <div
                 key={index}
-                className={`bg-gray-800 rounded-lg border-2 ${
-                  nivelCores[sugestao.nivel]
-                } p-5 flex flex-col gap-4`}
+                className={`bg-white/80 backdrop-blur-sm rounded-xl border-2 ${nivelCores[sugestao.nivel]} p-5 flex flex-col gap-4 shadow-lg`}
               >
-                <h3 className="font-bold text-lg text-cyan-400">
+                <h3 className="font-bold text-lg text-cyan-600">
                   {sugestao.nivel}
                 </h3>
                 <div>
-                  <label className="text-xs font-bold text-gray-400">
+                  <label className="text-xs font-bold text-[#1a1a1a]">
                     Título
                   </label>
                   <input
@@ -232,11 +179,11 @@ export function ContentGeneratorPage() {
                     onChange={(e) =>
                       handleSuggestionChange(index, "titulo", e.target.value)
                     }
-                    className="w-full bg-gray-700/50 p-2 rounded-md mt-1 text-gray-100"
+                    className="w-full bg-white border border-gray-300 p-2 rounded-lg mt-1 text-[#1a1a1a] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-400">
+                  <label className="text-xs font-bold text-[#1a1a1a]">
                     Descrição/Pergunta
                   </label>
                   <textarea
@@ -244,16 +191,16 @@ export function ContentGeneratorPage() {
                     onChange={(e) =>
                       handleSuggestionChange(index, "descricao", e.target.value)
                     }
-                    className="w-full bg-gray-700/50 p-2 rounded-md mt-1 h-32 text-gray-200"
+                    className="w-full bg-white border border-gray-300 p-2 rounded-lg mt-1 h-32 text-[#1a1a1a] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors resize-none"
                   />
                 </div>
-                <div className="text-xs text-gray-400 mt-auto">
+                <div className="text-xs text-[#1a1a1a] mt-auto">
                   <p>
-                    <strong className="text-gray-300">Resposta:</strong>{" "}
+                    <strong className="text-[#1a1a1a]">Resposta:</strong>{" "}
                     {sugestao.respostaCorreta}
                   </p>
                   <p>
-                    <strong className="text-gray-300">Feedback:</strong>{" "}
+                    <strong className="text-[#1a1a1a]">Feedback:</strong>{" "}
                     {sugestao.feedback}
                   </p>
                 </div>
@@ -262,7 +209,7 @@ export function ContentGeneratorPage() {
           </div>
           <button
             onClick={handlePublish}
-            className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 transform hover:scale-105"
           >
             <Save size={20} /> Aprovar e Publicar Tudo
           </button>
@@ -270,17 +217,17 @@ export function ContentGeneratorPage() {
       )}
 
       {status === "published" && (
-        <div className="text-center bg-gray-800 border border-green-500 rounded-lg p-8">
-          <Check size={48} className="text-green-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-green-400">
+        <div className="text-center bg-white/80 backdrop-blur-sm border border-green-500 rounded-xl p-8 shadow-lg">
+          <Check size={48} className="text-green-600 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-green-600">
             Conteúdo Publicado!
           </h2>
-          <p className="text-gray-300 mt-2">
+          <p className="text-[#1a1a1a] mt-2">
             Os novos desafios já estão disponíveis para os alunos.
           </p>
           <button
             onClick={resetGenerator}
-            className="mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg"
+            className="mt-6 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
           >
             Gerar Novo Conteúdo
           </button>

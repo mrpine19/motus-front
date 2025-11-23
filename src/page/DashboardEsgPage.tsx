@@ -52,7 +52,7 @@ export function DashboardEsgPage() {
 
   if (loading) {
     return (
-      <div className="text-center text-gray-400 animate-pulse">
+      <div className="text-center text-[#1a1a1a] animate-pulse">
         Carregando relatório de impacto...
       </div>
     );
@@ -60,7 +60,7 @@ export function DashboardEsgPage() {
 
   if (error || !data) {
     return (
-      <div className="text-center text-red-400">
+      <div className="text-center text-red-600">
         {error || "Dados não encontrados."}
       </div>
     );
@@ -79,9 +79,9 @@ export function DashboardEsgPage() {
     color: string;
     unit?: string;
   }) => (
-    <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 flex flex-col">
+    <div className="bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 flex flex-col shadow-lg">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-medium text-gray-400">{title}</h3>
+        <h3 className="text-sm font-medium text-[#1a1a1a]">{title}</h3>
         <Icon className={`h-6 w-6 ${color}`} />
       </div>
       <p className={`text-4xl font-bold ${color}`}>
@@ -95,17 +95,17 @@ export function DashboardEsgPage() {
     <div className="container mx-auto px-4">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-100">
+          <h1 className="text-3xl font-bold text-[#1a1a1a]">
             Relatório de Impacto ESG
           </h1>
-          <p className="text-gray-400">
+          <p className="text-[#1a1a1a]">
             Dados consolidados do programa de capacitação -{" "}
             {data.nomePatrocinador}
           </p>
         </div>
         <button
           onClick={handleExport}
-          className="flex items-center gap-2 px-4 py-2 border border-cyan-500 text-cyan-500 rounded-lg hover:bg-cyan-500/10 transition-colors text-sm font-semibold"
+          className="flex items-center gap-2 px-4 py-2 border border-[#1a1a1a] text-[#1a1a1a] rounded-lg hover:bg-[#1a1a1a] hover:text-white transition-colors text-sm font-semibold"
         >
           <Download size={16} />
           Exportar Relatório de Auditoria
@@ -117,54 +117,54 @@ export function DashboardEsgPage() {
           icon={TrendingUp}
           title="ROI Social (Multiplicador)"
           value={`x${data.roiSocial.toFixed(1)}`}
-          color="text-green-400"
+          color="text-green-600"
         />
         <KpiCard
           icon={Brain}
           title="Redução do Skills Gap"
           value={data.percentualReducaoSkillsGap.toFixed(1)}
           unit="%"
-          color="text-cyan-400"
+          color="text-cyan-600"
         />
         <KpiCard
           icon={Users}
           title="Retenção de Alunos"
           value={data.taxaRetencaoAlunos.toFixed(1)}
           unit="%"
-          color="text-indigo-400"
+          color="text-blue-600"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div className="lg:col-span-1 bg-gray-800/50 border border-gray-700 rounded-lg p-6">
-          <h3 className="font-bold text-gray-200 mb-4 flex items-center gap-2">
+        <div className="lg:col-span-1 bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 shadow-lg">
+          <h3 className="font-bold text-[#1a1a1a] mb-4 flex items-center gap-2">
             <Target size={20} /> ODS Alinhados
           </h3>
           <div className="flex flex-wrap gap-2">
             {data.odsAlinhados.split(", ").map((ods) => (
               <span
                 key={ods}
-                className="bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1.5 rounded-full"
+                className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1.5 rounded-full"
               >
                 {ods}
               </span>
             ))}
           </div>
         </div>
-        <div className="lg:col-span-2 bg-gray-800/50 border border-gray-700 rounded-lg p-6">
-          <h3 className="font-bold text-gray-200 mb-4 flex items-center gap-2">
+        <div className="lg:col-span-2 bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 shadow-lg">
+          <h3 className="font-bold text-[#1a1a1a] mb-4 flex items-center gap-2">
             <Clock size={20} /> Métricas de Engajamento
           </h3>
           <div className="flex justify-around text-center">
             <div>
-              <p className="text-sm text-gray-400">Alunos Impactados</p>
-              <p className="text-2xl font-bold text-cyan-400">
+              <p className="text-sm text-[#1a1a1a]">Alunos Impactados</p>
+              <p className="text-2xl font-bold text-cyan-600">
                 {data.totalAlunosImpactados}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Horas/Aluno</p>
-              <p className="text-2xl font-bold text-cyan-400">
+              <p className="text-sm text-[#1a1a1a]">Horas/Aluno</p>
+              <p className="text-2xl font-bold text-cyan-600">
                 {data.horasMediasUsoPlataforma.toFixed(1)}
               </p>
             </div>
@@ -173,16 +173,16 @@ export function DashboardEsgPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6">
-          <h3 className="font-bold text-gray-200 mb-4">
+        <div className="bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 shadow-lg">
+          <h3 className="font-bold text-[#1a1a1a] mb-4">
             Evolução de Competências (Simulado)
           </h3>
           <div className="space-y-4">
             <div>
-              <p className="text-sm font-medium text-gray-300">
+              <p className="text-sm font-medium text-[#1a1a1a]">
                 Lógica de Programação
               </p>
-              <div className="w-full bg-gray-700 rounded-full h-2.5 mt-1">
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
                 <div
                   className="bg-cyan-500 h-2.5 rounded-full"
                   style={{ width: "75%" }}
@@ -190,10 +190,10 @@ export function DashboardEsgPage() {
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-300">
+              <p className="text-sm font-medium text-[#1a1a1a]">
                 Resolução de Problemas
               </p>
-              <div className="w-full bg-gray-700 rounded-full h-2.5 mt-1">
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
                 <div
                   className="bg-cyan-500 h-2.5 rounded-full"
                   style={{ width: "60%" }}
@@ -201,8 +201,8 @@ export function DashboardEsgPage() {
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-300">Comunicação</p>
-              <div className="w-full bg-gray-700 rounded-full h-2.5 mt-1">
+              <p className="text-sm font-medium text-[#1a1a1a]">Comunicação</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
                 <div
                   className="bg-cyan-500 h-2.5 rounded-full"
                   style={{ width: "85%" }}
@@ -212,34 +212,34 @@ export function DashboardEsgPage() {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6">
-          <h3 className="font-bold text-gray-200 mb-4">
+        <div className="bg-white/80 backdrop-blur-sm border border-gray-300 rounded-xl p-6 shadow-lg">
+          <h3 className="font-bold text-[#1a1a1a] mb-4">
             Engajamento por Semana (Simulado)
           </h3>
           <div className="flex items-end justify-between h-32 space-x-2">
             <div
-              className="w-full bg-gray-700 rounded-t-md"
+              className="w-full bg-gray-200 rounded-t-md"
               style={{ height: "40%" }}
             >
-              <div className="bg-indigo-500 h-full rounded-t-md"></div>
+              <div className="bg-blue-500 h-full rounded-t-md"></div>
             </div>
             <div
-              className="w-full bg-gray-700 rounded-t-md"
+              className="w-full bg-gray-200 rounded-t-md"
               style={{ height: "60%" }}
             >
-              <div className="bg-indigo-500 h-full rounded-t-md"></div>
+              <div className="bg-blue-500 h-full rounded-t-md"></div>
             </div>
             <div
-              className="w-full bg-gray-700 rounded-t-md"
+              className="w-full bg-gray-200 rounded-t-md"
               style={{ height: "75%" }}
             >
-              <div className="bg-indigo-500 h-full rounded-t-md"></div>
+              <div className="bg-blue-500 h-full rounded-t-md"></div>
             </div>
             <div
-              className="w-full bg-gray-700 rounded-t-md"
+              className="w-full bg-gray-200 rounded-t-md"
               style={{ height: "90%" }}
             >
-              <div className="bg-indigo-500 h-full rounded-t-md"></div>
+              <div className="bg-blue-500 h-full rounded-t-md"></div>
             </div>
           </div>
         </div>

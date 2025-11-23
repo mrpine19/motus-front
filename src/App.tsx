@@ -7,7 +7,7 @@ import LoginPage from "./page/LoginPage";
 import ContactPage from "./page/ContactPage";
 import MainLayout from "./components/layout/MainLayout";
 import RankingPage from "./page/RankingPage";
-import SystemLayout from "./SystemLayout";
+import SystemLayout from "./components/layout/SystemLayout";
 import DashboardMentorPage from "./page/DashboardMentorPage";
 import DashboardEsgPage from "./page/DashboardEsgPage";
 import ContentGeneratorPage from "./page/ContentGeneratorPage";

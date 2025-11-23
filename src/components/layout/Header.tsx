@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, Sun, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 
 const useAuth = () => {
     return { 
@@ -14,7 +14,7 @@ const useAuth = () => {
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, userRole, logout } = useAuth();
+    const { isLoggedIn, userRole } = useAuth();
     const isDarkMode = true; 
     
     const NAV_ITEMS = [
@@ -25,11 +25,6 @@ const Header: React.FC = () => {
         { name: 'Mentoria', path: '/dashboard/mentor', visibleTo: ['VOLUNTARIO'] },
         { name: 'ESG Executivo', path: '/dashboard/esg', visibleTo: ['PATROCINADOR'] },
     ];
-
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
 
     return (
         <header className="sticky top-0 z-50 bg-blue-400 shadow-xl border-b border-blue-300/50">
@@ -59,12 +54,12 @@ const Header: React.FC = () => {
                         })}
                         
                         {isLoggedIn ? (
-                            <button
-                                onClick={handleLogout}
-                                className="inline-flex items-center text-sm font-medium text-red-500 hover:text-red-600 transition-colors"
+                            <Link
+                                to="/login"
+                                className="inline-flex items-center text-sm font-medium bg-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-500 transition-colors"
                             >
-                                <LogOut size={16} className="mr-1" /> Sair ({userRole})
-                            </button>
+                                Login
+                            </Link>
                         ) : (
                              <Link
                                 to="/login"

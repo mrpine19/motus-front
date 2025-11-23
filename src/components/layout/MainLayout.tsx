@@ -9,7 +9,7 @@ export function MainLayout() {
         <Outlet />
       </main>
       <footer className="bg-blue-400 text-center p-4 text-gray-800">
-        Motus.IA © {new Date().getFullYear()}
+        © 2025 Motus.IA - Todos os direitos reservados
       </footer>
     </div>
   );
