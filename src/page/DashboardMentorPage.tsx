@@ -21,7 +21,7 @@ interface TurmaDashboardDto {
   maioresDificuldades: DificuldadeAreaDto[];
 }
 
-const MOCK_VOLUNTARIO_ID = 1;
+const MOCK_VOLUNTARIO_ID = 2;
 
 export function DashboardMentorPage() {
   const [turmas, setTurmas] = useState<TurmaDashboardDto[]>([]);

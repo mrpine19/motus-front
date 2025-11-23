@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Mail, Phone, MapPin, Clock, CheckCircle, Linkedin, Github } from "lucide-react";
+import { Send, Mail, Phone, MapPin, Clock, CheckCircle } from "lucide-react";
 
 export function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -93,24 +93,6 @@ export function ContactPage() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="border-t border-gray-200/50 pt-6">
-              <h3 className="font-semibold text-[#1a1a1a] mb-4">Siga-nos</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-gray-100 hover:bg-blue-100 text-[#1a1a1a] rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                >
-                  <Linkedin size={20} />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-gray-100 hover:bg-gray-200 text-[#1a1a1a] rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                >
-                  <Github size={20} />
-                </a>
-              </div>
             </div>
           </div>
         </div>

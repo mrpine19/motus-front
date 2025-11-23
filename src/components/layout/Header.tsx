@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
 
 const useAuth = () => {
     return { 
@@ -15,10 +14,9 @@ const useAuth = () => {
 const Header: React.FC = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userRole } = useAuth();
-    const isDarkMode = true; 
     
     const NAV_ITEMS = [
-        { name: 'Home', path: '/', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
+        { name: 'Sobre', path: '/', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Integrantes', path: '/integrantes', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Perguntas frequentes', path: '/perguntas', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Contato', path: '/contato', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
@@ -27,11 +25,11 @@ const Header: React.FC = () => {
     ];
 
     return (
-        <header className="sticky top-0 z-50 bg-blue-400 shadow-xl border-b border-blue-300/50">
+        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-xl border-b border-white/20">
             <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <h1 
                     onClick={() => navigate('/')} 
-                    className="text-2xl font-black text-gray-800 cursor-pointer hover:text-gray-900 transition-colors"
+                    className="text-2xl font-black text-[#1a1a1a] cursor-pointer hover:text-cyan-600 transition-colors"
                 >
                     Motus.IA
                 </h1>
@@ -46,7 +44,7 @@ const Header: React.FC = () => {
                                 <Link
                                     key={item.path}
                                     to={item.path}
-                                    className="text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors"
+                                    className="text-sm font-medium text-[#1a1a1a] hover:text-cyan-600 transition-colors"
                                 >
                                     {item.name}
                                 </Link>
@@ -56,27 +54,19 @@ const Header: React.FC = () => {
                         {isLoggedIn ? (
                             <Link
                                 to="/login"
-                                className="inline-flex items-center text-sm font-medium bg-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-500 transition-colors"
+                                className="inline-flex items-center text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
                             >
-                                Login
+                                Área interna
                             </Link>
                         ) : (
-                             <Link
+                            <Link
                                 to="/login"
-                                className="inline-flex items-center text-sm font-medium bg-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-500 transition-colors"
+                                className="inline-flex items-center text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
                             >
-                                Login
+                                Entrar
                             </Link>
                         )}
                     </nav>
-
-                    <button
-                        type="button"
-                        className="p-2 rounded-full hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-blue-400"
-                        aria-label="Alternar tema"
-                    >
-                        {isDarkMode ? <Sun size={20} className="text-gray-800" /> : <Moon size={20} className="text-gray-800" />}
-                    </button>
                 </div>
             </div>
         </header>

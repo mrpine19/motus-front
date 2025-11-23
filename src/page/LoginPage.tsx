@@ -122,18 +122,6 @@ export function LoginPage() {
               </button>
             </div>
           </form>
-
-          <div className="bg-gray-50/50 px-8 py-4 border-t border-gray-200/50">
-            <p className="text-center text-sm text-[#1a1a1a]/70">
-              Não tem uma conta?{" "}
-              <a
-                href="#"
-                className="font-medium text-cyan-600 hover:text-cyan-500 transition-colors"
-              >
-                Solicite acesso
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>

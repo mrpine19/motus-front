@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./page/AuthContext";
 import HomePage from "./page/HomePage";
 import IntegrantesPage from "./page/IntegrantesPage";
-import AboutPage from "./page/AboutPage";
 import LoginPage from "./page/LoginPage";
 import ContactPage from "./page/ContactPage";
 import MainLayout from "./components/layout/MainLayout";
@@ -25,7 +24,6 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="integrantes" element={<IntegrantesPage />} />
-            <Route path="sobre" element={<AboutPage />} />
             <Route path="perguntas" element={<QuestionsPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="contato" element={<ContactPage />} />

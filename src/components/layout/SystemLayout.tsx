@@ -54,8 +54,11 @@ export function SystemLayout() {
 
         <footer className="bg-white/90 backdrop-blur-sm border-t border-white/20 py-4 px-6 flex-shrink-0">
           <div className="flex items-center justify-between text-sm">
-            <p className="text-[#1a1a1a]/70">
+            <p className="text-[#1a1a1a] font-medium">
               © 2025 Motus.IA - Todos os direitos reservados
+            </p>
+            <p className="text-[#1a1a1a]/70 text-sm mt-2">
+              Transformando educação através da inteligência artificial
             </p>
           </div>
         </footer>
