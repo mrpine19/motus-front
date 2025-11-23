@@ -11,14 +11,14 @@ export function SystemLayout() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-900 text-gray-200">
+    <div className="min-h-screen flex bg-[#38b7ff] text-gray-800">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-gray-800/50 backdrop-blur-sm flex justify-end p-4 border-b border-gray-700/50 flex-shrink-0">
+        <header className="bg-blue-400/50 backdrop-blur-sm flex justify-end p-4 border-b border-blue-300/50 flex-shrink-0">
           <div className="flex items-center">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-gray-300 hover:text-red-400 transition-colors"
+              className="flex items-center gap-2 text-gray-800 hover:text-red-500 transition-colors"
             >
               <LogOut size={18} /> Sair
             </button>

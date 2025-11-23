@@ -8,12 +8,14 @@ import ContactPage from "./page/ContactPage";
 import MainLayout from "./components/layout/MainLayout";
 import RankingPage from "./page/RankingPage";
 import SystemLayout from "./SystemLayout";
-import DesafioPage from "./page/DesafioPage";
 import DashboardMentorPage from "./page/DashboardMentorPage";
 import DashboardEsgPage from "./page/DashboardEsgPage";
 import ContentGeneratorPage from "./page/ContentGeneratorPage";
 import GestaoPage from "./page/GestaoPage";
 import AulasAtivasPage from "./page/AulasAtivasPage";
+import QuestionsPage from "./page/QuestionsPage";
+import DesafioPage from "./page/DesafioPage";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="integrantes" element={<IntegrantesPage />} />
             <Route path="sobre" element={<AboutPage />} />
+            <Route path="perguntas" element={<QuestionsPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="contato" element={<ContactPage />} />
           </Route>

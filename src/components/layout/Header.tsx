@@ -20,6 +20,7 @@ const Header: React.FC = () => {
     const NAV_ITEMS = [
         { name: 'Home', path: '/', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Integrantes', path: '/integrantes', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
+        { name: 'Perguntas frequentes', path: '/perguntas', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Contato', path: '/contato', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Mentoria', path: '/dashboard/mentor', visibleTo: ['VOLUNTARIO'] },
         { name: 'ESG Executivo', path: '/dashboard/esg', visibleTo: ['PATROCINADOR'] },
@@ -31,11 +32,11 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-gray-800 shadow-xl border-b border-indigo-900/50">
+        <header className="sticky top-0 z-50 bg-blue-400 shadow-xl border-b border-blue-300/50">
             <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <h1 
                     onClick={() => navigate('/')} 
-                    className="text-2xl font-black text-indigo-600 cursor-pointer hover:text-indigo-500 transition-colors"
+                    className="text-2xl font-black text-gray-800 cursor-pointer hover:text-gray-900 transition-colors"
                 >
                     Motus.IA
                 </h1>
@@ -50,7 +51,7 @@ const Header: React.FC = () => {
                                 <Link
                                     key={item.path}
                                     to={item.path}
-                                    className="text-sm font-medium hover:text-cyan-400 transition-colors"
+                                    className="text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors"
                                 >
                                     {item.name}
                                 </Link>
@@ -60,7 +61,7 @@ const Header: React.FC = () => {
                         {isLoggedIn ? (
                             <button
                                 onClick={handleLogout}
-                                className="inline-flex items-center text-sm font-medium text-red-400 hover:text-red-500 transition-colors"
+                                className="inline-flex items-center text-sm font-medium text-red-500 hover:text-red-600 transition-colors"
                             >
                                 <LogOut size={16} className="mr-1" /> Sair ({userRole})
                             </button>
@@ -76,10 +77,10 @@ const Header: React.FC = () => {
 
                     <button
                         type="button"
-                        className="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="p-2 rounded-full hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-blue-400"
                         aria-label="Alternar tema"
                     >
-                        {isDarkMode ? <Sun size={20} className="text-cyan-400" /> : <Moon size={20} className="text-cyan-400" />}
+                        {isDarkMode ? <Sun size={20} className="text-gray-800" /> : <Moon size={20} className="text-gray-800" />}
                     </button>
                 </div>
             </div>

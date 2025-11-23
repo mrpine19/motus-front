@@ -154,19 +154,19 @@ const GestaoPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
-      <h1 className="text-3xl font-bold mb-6 text-cyan-400">
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">
         Portal de Gestão de Voluntários
       </h1>
 
-      <div className="mb-6 border-b border-gray-700">
+      <div className="mb-6 border-b border-gray-300">
         <nav className="-mb-px flex space-x-6">
           <button
             onClick={() => setActiveTab("turmas")}
             className={`py-4 px-1 inline-flex items-center gap-2 text-lg font-medium ${
               activeTab === "turmas"
-                ? "border-b-2 border-cyan-400 text-cyan-400"
-                : "text-gray-400 hover:text-cyan-300"
+                ? "border-b-2 border-cyan-500 text-cyan-600"
+                : "text-gray-500 hover:text-cyan-500"
             }`}
           >
             <School /> Gerenciar Turmas
@@ -175,8 +175,8 @@ const GestaoPage: React.FC = () => {
             onClick={() => setActiveTab("alunos")}
             className={`py-4 px-1 inline-flex items-center gap-2 text-lg font-medium ${
               activeTab === "alunos"
-                ? "border-b-2 border-cyan-400 text-cyan-400"
-                : "text-gray-400 hover:text-cyan-300"
+                ? "border-b-2 border-cyan-500 text-cyan-600"
+                : "text-gray-500 hover:text-cyan-500"
             }`}
           >
             <GraduationCap /> Gerenciar Alunos
@@ -197,9 +197,9 @@ const GestaoPage: React.FC = () => {
             </div>
 
             {showTurmaForm && (
-              <div className="bg-gray-800 p-4 rounded-lg mb-6">
+              <div className="bg-white/50 p-4 rounded-lg mb-6">
                 <form onSubmit={handleSalvarTurma}>
-                  <h3 className="text-xl font-semibold mb-3">
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">
                     Cadastrar Nova Turma
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -210,7 +210,7 @@ const GestaoPage: React.FC = () => {
                       onChange={(e) =>
                         setNovaTurma({ ...novaTurma, nome: e.target.value })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     />
                     <input
@@ -223,7 +223,7 @@ const GestaoPage: React.FC = () => {
                           descricao: e.target.value,
                         })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     />
                     <select
@@ -234,7 +234,7 @@ const GestaoPage: React.FC = () => {
                           voluntario: e.target.value,
                         })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     >
                       <option value="" disabled>
@@ -257,26 +257,26 @@ const GestaoPage: React.FC = () => {
               </div>
             )}
 
-            <div className="overflow-x-auto bg-gray-800 rounded-lg">
+            <div className="overflow-x-auto bg-white/50 rounded-lg">
               <table className="min-w-full text-left">
-                <thead className="bg-gray-700">
+                <thead className="bg-gray-200">
                   <tr>
-                    <th className="p-4">Nome</th>
-                    <th className="p-4">Descrição</th>
-                    <th className="p-4">Voluntário Responsável</th>
-                    <th className="p-4">Ações</th>
+                    <th className="p-4 text-gray-800">Nome</th>
+                    <th className="p-4 text-gray-800">Descrição</th>
+                    <th className="p-4 text-gray-800">Voluntário Responsável</th>
+                    <th className="p-4 text-gray-800">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {turmas.map((turma) => (
-                    <tr key={turma.id} className="border-b border-gray-700">
-                      <td className="p-4">{turma.nome}</td>
-                      <td className="p-4">{turma.descricao}</td>
-                      <td className="p-4">
+                    <tr key={turma.id} className="border-b border-gray-300">
+                      <td className="p-4 text-gray-800">{turma.nome}</td>
+                      <td className="p-4 text-gray-800">{turma.descricao}</td>
+                      <td className="p-4 text-gray-800">
                         {turma.voluntarioResponsavel || "N/A"}
                       </td>
                       <td className="p-4">
-                        <button className="text-red-400 hover:text-red-500">
+                        <button className="text-red-500 hover:text-red-600">
                           <Trash2 size={20} />
                         </button>
                       </td>
@@ -300,9 +300,9 @@ const GestaoPage: React.FC = () => {
             </div>
 
             {showAlunoForm && (
-              <div className="bg-gray-800 p-4 rounded-lg mb-6">
+              <div className="bg-white/50 p-4 rounded-lg mb-6">
                 <form onSubmit={handleSalvarAluno}>
-                  <h3 className="text-xl font-semibold mb-3">
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">
                     Cadastrar Novo Aluno
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -313,7 +313,7 @@ const GestaoPage: React.FC = () => {
                       onChange={(e) =>
                         setNovoAluno({ ...novoAluno, nome: e.target.value })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     />
                     <input
@@ -323,7 +323,7 @@ const GestaoPage: React.FC = () => {
                       onChange={(e) =>
                         setNovoAluno({ ...novoAluno, email: e.target.value })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     />
                     <select
@@ -334,7 +334,7 @@ const GestaoPage: React.FC = () => {
                           nomeTurma: e.target.value,
                         })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     >
                       <option value="" disabled>
@@ -354,7 +354,7 @@ const GestaoPage: React.FC = () => {
                           nivelAtual: e.target.value,
                         })
                       }
-                      className="bg-gray-700 border border-gray-600 rounded p-2 w-full"
+                      className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-gray-800"
                       required
                     >
                       <option value="" disabled>
@@ -375,38 +375,38 @@ const GestaoPage: React.FC = () => {
               </div>
             )}
 
-            <div className="overflow-x-auto bg-gray-800 rounded-lg">
+            <div className="overflow-x-auto bg-white/50 rounded-lg">
               <table className="min-w-full text-left">
-                <thead className="bg-gray-700">
+                <thead className="bg-gray-200">
                   <tr>
-                    <th className="p-4">Nome</th>
-                    <th className="p-4">Email</th>
-                    <th className="p-4">Turma Vinculada</th>
-                    <th className="p-4">Nível Atual</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4">Ações</th>
+                    <th className="p-4 text-gray-800">Nome</th>
+                    <th className="p-4 text-gray-800">Email</th>
+                    <th className="p-4 text-gray-800">Turma Vinculada</th>
+                    <th className="p-4 text-gray-800">Nível Atual</th>
+                    <th className="p-4 text-gray-800">Status</th>
+                    <th className="p-4 text-gray-800">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {alunos.map((aluno) => (
-                    <tr key={aluno.id} className="border-b border-gray-700">
-                      <td className="p-4">{aluno.nome}</td>
-                      <td className="p-4">{aluno.email}</td>
-                      <td className="p-4">{aluno.nomeTurma || "N/A"}</td>
-                      <td className="p-4">{aluno.nivelAtual}</td>
+                    <tr key={aluno.id} className="border-b border-gray-300">
+                      <td className="p-4 text-gray-800">{aluno.nome}</td>
+                      <td className="p-4 text-gray-800">{aluno.email}</td>
+                      <td className="p-4 text-gray-800">{aluno.nomeTurma || "N/A"}</td>
+                      <td className="p-4 text-gray-800">{aluno.nivelAtual}</td>
                       <td className="p-4">
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-semibold ${
                             aluno.status === "ATIVO"
-                              ? "bg-green-500 text-green-900"
-                              : "bg-red-500 text-red-900"
+                              ? "bg-green-200 text-green-800"
+                              : "bg-red-200 text-red-800"
                           }`}
                         >
                           {aluno.status}
                         </span>
                       </td>
                       <td className="p-4">
-                        <button className="text-red-400 hover:text-red-500">
+                        <button className="text-red-500 hover:text-red-600">
                           <Trash2 size={20} />
                         </button>
                       </td>

@@ -3,12 +3,12 @@ import Header from "./Header";
 
 export function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
+    <div className="min-h-screen flex flex-col bg-[#38b7ff] text-gray-800">
       <Header />
       <main className="grow py-8">
         <Outlet />
       </main>
-      <footer className="bg-gray-800 text-center p-4 text-gray-400">
+      <footer className="bg-blue-400 text-center p-4 text-gray-800">
         Motus.IA © {new Date().getFullYear()}
       </footer>
     </div>
