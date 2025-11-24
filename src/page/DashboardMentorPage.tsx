@@ -21,78 +21,7 @@ interface TurmaDashboardDto {
   maioresDificuldades: DificuldadeAreaDto[];
 }
 
-// --- Dados Mockados para Desenvolvimento ---
-const MOCK_DASHBOARD_DATA: TurmaDashboardDto[] = [
-  {
-    id: 1,
-    nome: "Turma A - Lógica de Programação",
-    maioresDificuldades: [
-      { areaCompetencia: "LOGICA", taxaErro: 0.45 },
-      { areaCompetencia: "RESOLUCAO", taxaErro: 0.25 },
-    ],
-    alunos: [
-      {
-        id: 10,
-        nome: "Carlos Andrade",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.8,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 11,
-        nome: "Beatriz Martins",
-        nivelAtual: "Nível Intermediário",
-        taxaAcertoUltimos10: 0.9,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 12,
-        nome: "Daniela Rocha",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.4,
-        teveIntervencaoManual: true,
-      },
-      {
-        id: 13,
-        nome: "Felipe Barros",
-        nivelAtual: "Nível Avançado",
-        taxaAcertoUltimos10: 1.0,
-        teveIntervencaoManual: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    nome: "Turma B - Interpretação de Texto",
-    maioresDificuldades: [
-      { areaCompetencia: "PORTUGUES", taxaErro: 0.6 },
-      { areaCompetencia: "LOGICA", taxaErro: 0.15 },
-    ],
-    alunos: [
-      {
-        id: 20,
-        nome: "Juliana Lima",
-        nivelAtual: "Nível Intermediário",
-        taxaAcertoUltimos10: 0.7,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 21,
-        nome: "Marcos Vinicius",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.3,
-        teveIntervencaoManual: false,
-      },
-      {
-        id: 22,
-        nome: "Patricia Alves",
-        nivelAtual: "Nível Básico",
-        taxaAcertoUltimos10: 0.5,
-        teveIntervencaoManual: true,
-      },
-    ],
-  },
-];
+const MOCK_VOLUNTARIO_ID = 2;
 
 export function DashboardMentorPage() {
   const [turmas, setTurmas] = useState<TurmaDashboardDto[]>([]);
@@ -104,21 +33,15 @@ export function DashboardMentorPage() {
       setLoading(true);
       setError(null);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1200));
-
-        // --- LÓGICA DE FETCH REAL (COMENTADA) ---
-        /*
-        const response = await fetch(`http://localhost:8080/dashboard/voluntario/${MOCK_VOLUNTARIO_ID}`);
+        const response = await fetch(
+          `http://localhost:8080/dashboard/voluntario/${MOCK_VOLUNTARIO_ID}`
+        );
         if (!response.ok) {
-          throw new Error('Falha ao buscar dados do dashboard.');
+          throw new Error("Falha ao buscar dados do dashboard.");
         }
         const data: TurmaDashboardDto[] = await response.json();
         setTurmas(data);
-        */
-
-        // Usando dados mockados
-        setTurmas(MOCK_DASHBOARD_DATA);
-      } catch (err) {
+      } catch (err: unknown) {
         setError("Não foi possível carregar os dados do painel.");
         console.error(err);
       } finally {
@@ -129,32 +52,32 @@ export function DashboardMentorPage() {
     fetchData();
   }, []);
 
-  const getCorTaxaErro = (taxa: number) => {
-    if (taxa > 0.5) return "bg-red-500/20 text-red-400 border-red-500/30";
+const getCorTaxaErro = (taxa: number) => {
+    if (taxa > 0.5) return "bg-red-200 text-red-800 border-red-300";
     if (taxa > 0.3)
-      return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-    return "bg-green-500/20 text-green-400 border-green-500/30";
+      return "bg-yellow-200 text-yellow-800 border-yellow-300";
+    return "bg-green-200 text-green-800 border-green-300";
   };
 
   if (loading) {
     return (
-      <div className="text-center text-gray-400">
+      <div className="text-center text-gray-600">
         Carregando dados do painel...
       </div>
     );
   }
 
   if (error) {
-    return <div className="text-center text-red-400">{error}</div>;
+    return <div className="text-center text-red-600">{error}</div>;
   }
 
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center gap-4 mb-4">
-        <Users className="text-cyan-400" size={32} />
-        <h1 className="text-3xl font-bold text-gray-100">Painel de Mentoria</h1>
+        <Users className="text-cyan-500" size={32} />
+        <h1 className="text-3xl font-bold text-gray-800">Painel de Mentoria</h1>
       </div>
-      <p className="text-gray-400 mb-8">
+      <p className="text-gray-600 mb-8">
         Acompanhamento de Desempenho por Turma
       </p>
 
@@ -162,14 +85,14 @@ export function DashboardMentorPage() {
         {turmas.map((turma) => (
           <div
             key={turma.id}
-            className="bg-gray-800/50 border border-gray-700 rounded-lg shadow-lg overflow-hidden"
+            className="bg-white/50 border border-gray-300 rounded-lg shadow-lg overflow-hidden"
           >
-            <div className="p-6 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-indigo-400 mb-3">
+            <div className="p-6 border-b border-gray-300">
+              <h2 className="text-xl font-bold text-indigo-600 mb-3">
                 {turma.nome}
               </h2>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-gray-400">
+                <span className="text-sm font-semibold text-gray-600">
                   Maiores Dificuldades:
                 </span>
                 {turma.maioresDificuldades.map((d) => (
@@ -187,36 +110,36 @@ export function DashboardMentorPage() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-700">
-                <thead className="bg-gray-800">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-200">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
                     >
                       Aluno
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
                     >
                       Nível Atual
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
                     >
                       Desempenho Recente
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
                     >
                       Status
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-gray-800/50 divide-y divide-gray-700/50">
+                <tbody className="bg-white/50 divide-y divide-gray-300/50">
                   {turma.alunos.map((aluno) => {
                     const emRisco = aluno.taxaAcertoUltimos10 < 0.5;
                     const corProgresso = emRisco ? "bg-red-500" : "bg-cyan-500";
@@ -225,26 +148,26 @@ export function DashboardMentorPage() {
                       <tr
                         key={aluno.id}
                         className={
-                          emRisco ? "bg-red-900/20" : "hover:bg-gray-700/30"
+                          emRisco ? "bg-red-200/30" : "hover:bg-gray-200/30"
                         }
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div
                             className={`font-medium ${
-                              emRisco ? "text-red-300" : "text-gray-100"
+                              emRisco ? "text-red-700" : "text-gray-800"
                             }`}
                           >
                             {aluno.nome}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-500/20 text-indigo-300">
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-indigo-800">
                             {aluno.nivelAtual}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center gap-3">
-                            <div className="w-32 bg-gray-700 rounded-full h-2.5">
+                            <div className="w-32 bg-gray-300 rounded-full h-2.5">
                               <div
                                 className={`${corProgresso} h-2.5 rounded-full transition-all duration-500`}
                                 style={{
@@ -254,7 +177,7 @@ export function DashboardMentorPage() {
                             </div>
                             <span
                               className={`text-sm font-bold ${
-                                emRisco ? "text-red-400" : "text-cyan-400"
+                                emRisco ? "text-red-600" : "text-cyan-600"
                               }`}
                             >
                               {(aluno.taxaAcertoUltimos10 * 100).toFixed(0)}%
@@ -276,10 +199,10 @@ export function DashboardMentorPage() {
                           {aluno.teveIntervencaoManual && (
                             <div className="relative group flex items-center">
                               <AlertTriangle
-                                className="text-yellow-400"
+                                className="text-yellow-500"
                                 size={20}
                               />
-                              <div className="absolute bottom-full mb-2 hidden group-hover:block w-max bg-gray-900 text-white text-xs rounded py-1 px-2 border border-gray-600 shadow-lg">
+                              <div className="absolute bottom-full mb-2 hidden group-hover:block w-max bg-white text-gray-800 text-xs rounded py-1 px-2 border border-gray-300 shadow-lg">
                                 Ajuste Manual de Dificuldade Realizado
                               </div>
                             </div>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const useAuth = () => {
     return { 
@@ -14,34 +14,30 @@ const useAuth = () => {
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, userRole, logout } = useAuth();
-    const isDarkMode = true; 
+    const { isLoggedIn, userRole } = useAuth();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     
     const NAV_ITEMS = [
-        { name: 'Home', path: '/', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
+        { name: 'Sobre', path: '/', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Integrantes', path: '/integrantes', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
-        { name: 'Ranking', path: '/ranking', visibleTo: ['ALUNO'] },
+        { name: 'Perguntas frequentes', path: '/perguntas', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
+        { name: 'Contato', path: '/contato', visibleTo: ['GUEST', 'ALUNO', 'VOLUNTARIO', 'PATROCINADOR'] },
         { name: 'Mentoria', path: '/dashboard/mentor', visibleTo: ['VOLUNTARIO'] },
         { name: 'ESG Executivo', path: '/dashboard/esg', visibleTo: ['PATROCINADOR'] },
     ];
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
-
     return (
-        <header className="sticky top-0 z-50 bg-gray-800 shadow-xl border-b border-indigo-900/50">
+        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-xl border-b border-white/20">
             <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <h1 
                     onClick={() => navigate('/')} 
-                    className="text-2xl font-black text-indigo-600 cursor-pointer hover:text-indigo-500 transition-colors"
+                    className="text-2xl font-black text-[#1a1a1a] cursor-pointer hover:text-cyan-600 transition-colors"
                 >
                     Motus.IA
                 </h1>
 
-                <div className="flex items-center space-x-6">
-                    <nav className="hidden items-center space-x-6 md:flex">
+                <div className="flex items-center">
+                    <nav className={`${isMenuOpen ? 'flex' : 'hidden'} absolute md:static top-16 left-0 w-full md:w-auto flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 bg-white/95 md:bg-transparent shadow-lg md:shadow-none p-6 md:p-0 md:flex`}>
                         {NAV_ITEMS.map((item) => {
                             const showLink = item.visibleTo.includes(userRole) || (item.name === 'Login' && !isLoggedIn);
                             if (!showLink) return null;
@@ -50,7 +46,8 @@ const Header: React.FC = () => {
                                 <Link
                                     key={item.path}
                                     to={item.path}
-                                    className="text-sm font-medium hover:text-cyan-400 transition-colors"
+                                    className="text-lg md:text-sm font-medium text-[#1a1a1a] hover:text-cyan-600 transition-colors w-full text-center md:w-auto"
+                                    onClick={() => setIsMenuOpen(false)}
                                 >
                                     {item.name}
                                 </Link>
@@ -58,28 +55,29 @@ const Header: React.FC = () => {
                         })}
                         
                         {isLoggedIn ? (
-                            <button
-                                onClick={handleLogout}
-                                className="inline-flex items-center text-sm font-medium text-red-400 hover:text-red-500 transition-colors"
-                            >
-                                <LogOut size={16} className="mr-1" /> Sair ({userRole})
-                            </button>
-                        ) : (
-                             <Link
+                            <Link
                                 to="/login"
-                                className="inline-flex items-center text-sm font-medium bg-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-500 transition-colors"
+                                className="inline-flex items-center justify-center text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 w-full md:w-auto"
+                                onClick={() => setIsMenuOpen(false)}
                             >
-                                Login
+                                Área interna
+                            </Link>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="inline-flex items-center justify-center text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 w-full md:w-auto"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Entrar
                             </Link>
                         )}
                     </nav>
-
-                    <button
-                        type="button"
-                        className="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-800"
-                        aria-label="Alternar tema"
+                     <button
+                        className="ml-4 md:hidden"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label="Toggle menu"
                     >
-                        {isDarkMode ? <Sun size={20} className="text-cyan-400" /> : <Moon size={20} className="text-cyan-400" />}
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </div>
